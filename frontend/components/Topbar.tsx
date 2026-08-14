@@ -6,12 +6,14 @@ interface TopbarProps {
   stationCount: number;
   dataSource: string;
   isLoading: boolean;
+  onAbout?: () => void;
 }
 
 export function Topbar({
   stationCount,
   dataSource,
   isLoading,
+  onAbout,
 }: TopbarProps) {
   const [time, setTime] = useState("");
 
@@ -34,86 +36,136 @@ export function Topbar({
   }, []);
 
   return (
-    <header className="relative h-24 overflow-hidden border-b border-cyan-500/30 bg-gradient-to-r from-[#030712] via-[#071827] to-[#020617] shadow-[0_0_40px_rgba(34,211,238,.25)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#22d3ee15,transparent_70%)]" />
+    <header className="relative z-50 h-[72px] border-b border-white/[0.06] bg-[#02070d]/80 backdrop-blur-xl">
+      
+      {/* Subtle cinematic glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.07),transparent_40%)]" />
 
-      <div className="relative z-10 flex h-full items-center justify-between px-8">
-        {/* LEFT */}
+      <div className="relative flex h-full items-center justify-between px-5 sm:px-8">
 
-        <div className="flex items-center gap-5">
-          <div className="relative">
-            <div className="h-5 w-5 rounded-full bg-cyan-400 animate-pulse" />
+        {/* =====================================================
+            LEFT — BRAND
+        ====================================================== */}
 
-            <div className="absolute inset-0 rounded-full border border-cyan-300 animate-ping" />
+        <div className="flex items-center gap-3">
+
+          {/* Live indicator */}
+
+          <div className="relative flex h-8 w-8 items-center justify-center">
+
+            <span className="absolute h-2 w-2 animate-pulse rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
+
+            <span className="absolute h-6 w-6 rounded-full border border-cyan-400/20" />
+
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[6px] text-cyan-300">
-              Bitcoin Network Command Center
+
+            <p className="text-[9px] font-semibold uppercase tracking-[3px] text-cyan-400">
+              Infocreon Internship
             </p>
 
-            <h1 className="text-3xl font-black tracking-[5px] text-white">
-              MEMPOOL PULSE
+            <h1 className="text-sm font-bold tracking-tight text-white sm:text-base">
+              Mempool Congestion Intelligence
             </h1>
 
-            <p className="text-sm uppercase tracking-[4px] text-slate-400">
-              Real-Time Congestion Intelligence
-            </p>
           </div>
+
         </div>
 
-        {/* RIGHT */}
+        {/* =====================================================
+            RIGHT — MINIMAL METADATA
+        ====================================================== */}
 
-        <div className="flex gap-4">
-          <StatusCard
-            title="Transactions"
-            value={
-              isLoading
-                ? "Loading..."
-                : stationCount.toLocaleString()
-            }
-          />
+        <div className="flex items-center gap-3 sm:gap-5">
 
-          <StatusCard
-            title="Source"
-            value={
-              dataSource === "Mempool.space"
-                ? "LIVE"
-                : "LOCAL"
-            }
-          />
+          {/* Live state */}
 
-          <StatusCard
-            title="Status"
-            value={isLoading ? "SYNCING" : "ONLINE"}
-          />
+          <div className="hidden items-center gap-2 md:flex">
 
-          <StatusCard
-            title="Local Time"
-            value={time}
-          />
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                isLoading
+                  ? "bg-amber-400"
+                  : "bg-emerald-400"
+              }`}
+            />
+
+            <span className="text-[9px] uppercase tracking-[2px] text-slate-500">
+              {isLoading
+                ? "Syncing"
+                : "Live"}
+            </span>
+
+          </div>
+
+          {/* Transaction count */}
+
+          <div className="hidden border-l border-white/10 pl-5 lg:block">
+
+            <p className="text-[8px] uppercase tracking-[2px] text-slate-600">
+              Pending
+            </p>
+
+            <p className="mt-0.5 text-xs font-semibold text-slate-300">
+              {isLoading
+                ? "—"
+                : stationCount.toLocaleString()}
+            </p>
+
+          </div>
+
+          {/* Data source */}
+
+          <div className="hidden border-l border-white/10 pl-5 lg:block">
+
+            <p className="text-[8px] uppercase tracking-[2px] text-slate-600">
+              Data
+            </p>
+
+            <p className="mt-0.5 text-xs font-semibold text-cyan-300">
+              {dataSource ===
+              "Mempool.space"
+                ? "MEMPOOL.SPACE"
+                : dataSource}
+            </p>
+
+          </div>
+
+          {/* Local time */}
+
+          <div className="hidden border-l border-white/10 pl-5 xl:block">
+
+            <p className="text-[8px] uppercase tracking-[2px] text-slate-600">
+              Local Time
+            </p>
+
+            <p className="mt-0.5 font-mono text-xs text-slate-300">
+              {time || "--:--:--"}
+            </p>
+
+          </div>
+
+          {/* =================================================
+              INFO BUTTON
+          ================================================== */}
+
+          <button
+            type="button"
+            onClick={onAbout}
+            aria-label="Open project information"
+            title="Project information"
+            className="group flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-slate-400 transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300"
+          >
+            <span className="text-sm font-semibold">
+              i
+            </span>
+          </button>
+
         </div>
+
       </div>
+
     </header>
-  );
-}
-
-function StatusCard({
-  title,
-  value,
-}: {
-  title: string;
-  value: string;
-}) {
-  return (
-    <div className="min-w-[130px] rounded-2xl border border-cyan-500/20 bg-[#071019]/90 px-5 py-3 backdrop-blur-xl shadow-[0_0_25px_rgba(34,211,238,.12)] transition-all duration-300 hover:scale-105 hover:border-cyan-300">
-      <p className="text-[10px] uppercase tracking-[3px] text-slate-400">
-        {title}
-      </p>
-
-      <p className="mt-1 text-xl font-bold text-cyan-300">
-        {value}
-      </p>
-    </div>
   );
 }
