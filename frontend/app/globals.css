@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+
+    background: #050816;
+    color: white;
+
+    font-family:
+      Inter,
+      Arial,
+      Helvetica,
+      sans-serif;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+/* Glassmorphism */
+
+.glass {
+  @apply backdrop-blur-md border;
+
+  background-color: rgba(
+    11,
+    17,
+    23,
+    0.8
+  );
+
+  border-color: rgba(
+    31,
+    41,
+    55,
+    0.5
+  );
+}
+
+/* Cyan glow */
+
+.glow-active {
+  @apply border;
+
+  border-color: #38bdf8;
+
+  box-shadow:
+    0 0 12px
+    rgba(56, 189, 248, 0.5);
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+}
+
+/* Animations */
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 8px
+      rgba(56, 189, 248, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 0 16px
+      rgba(56, 189, 248, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation:
+    pulse-glow
+    2s
+    cubic-bezier(
+      0.4,
+      0,
+      0.6,
+      1
+    )
+    infinite;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation:
+    slide-in
+    0.3s
+    ease-out;
+}
+
+/* Cinematic Theme */
+
+body {
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(34, 211, 238, 0.08),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #071019 55%,
+      #020617 100%
+    );
+
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(34, 211, 238, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+
+  opacity: 0.45;
+
+  z-index: 0;
+}
+
+.card-glow {
+  box-shadow:
+    0 0 25px
+    rgba(34, 211, 238, 0.18);
+}
+
+@keyframes floatGlow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(
+        0 0 4px
+        rgba(34, 211, 238, 0.25)
+      );
+  }
+
+  50% {
+    filter:
+      drop-shadow(
+        0 0 14px
+        rgba(34, 211, 238, 0.55)
+      );
+  }
+}
+
+.float-glow {
+  animation:
+    floatGlow
+    3s
+    ease-in-out
+    infinite;
+}
+
+* {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
