@@ -1,639 +1,621 @@
-# 🚀 Phase 2 — Mempool Congestion Visualizer
+# 🐳 POC-88 — Mempool Congestion Visualizer
 
-> **Advanced Bitcoin Mempool Analytics & Congestion Intelligence Platform**
+**Infocreon Internship — Phase 2: Local-to-Cloud Containerization**
 
-The **Mempool Congestion Visualizer — Phase 2** is an enhanced version of the Phase 1 Proof of Concept developed to analyze and visualize real-time Bitcoin mempool activity.
+A containerized Bitcoin network intelligence dashboard that visualizes real-time mempool congestion, transaction activity, fee-market conditions, and recent blockchain activity.
 
-Phase 2 extends the original concept by introducing a more structured application architecture, improved analytics, interactive visualizations, congestion intelligence, fee analysis, and a more polished dashboard experience.
-
----
-
-## 📌 Project Information
-
-| Field              | Details                                          |
-| ------------------ | ------------------------------------------------ |
-| **Project**        | Mempool Congestion Visualizer                    |
-| **Phase**          | Phase 2                                          |
-| **PoC ID**         | POC-88                                           |
-| **Developer**      | Aswin Sankar P.S.                                |
-| **GitHub**         | `sankeraswin579-crypto`                          |
-| **Repository**     | `POC-88-MempoolCongestionVisualizer-AswinSankar` |
-| **Data Source**    | Mempool.space API                                |
-| **Status**         | Phase 2 — Local Application                      |
-| **Primary Domain** | Bitcoin / Blockchain Analytics                   |
+The application uses a **Next.js frontend** and **FastAPI backend**, orchestrated with **Docker Compose** for a reproducible local environment suitable for future cloud deployment.
 
 ---
 
-# 🎯 Phase 2 Objective
+## 📌 Project Overview
 
-The primary objective of Phase 2 is to transform the initial mempool visualization concept into a more complete **Bitcoin network intelligence platform**.
+The **Mempool Congestion Visualizer** provides an intelligence-focused view of the Bitcoin network by transforming live mempool and blockchain data into understandable network-pressure indicators.
 
-### Phase 1
+### Key capabilities
 
-The original PoC focused primarily on:
-
-```text
-Bitcoin Network Data
-        ↓
-API Integration
-        ↓
-Mempool Data
-        ↓
-Basic Visualization
-```
-
-### Phase 2
-
-The application expands this into:
-
-```text
-Bitcoin Network
-       ↓
-Mempool.space API
-       ↓
-Data Collection
-       ↓
-Data Processing
-       ↓
-Analytics Engine
-       ↓
-Congestion Analysis
-       ↓
-Fee Analysis
-       ↓
-Block Analysis
-       ↓
-Intelligence Layer
-       ↓
-Interactive Dashboard
-```
-
-The goal is to provide not only **what is happening**, but also a clearer understanding of **what the network conditions mean**.
-
----
-
-# 🧩 Problem Statement
-
-Bitcoin transactions are temporarily stored in the mempool before being included in blocks.
-
-When transaction demand increases, competition for block space can increase, resulting in:
-
-* Higher transaction fees
-* Longer confirmation times
-* Increased mempool size
-* Greater transaction competition
-* Difficulty selecting appropriate fees
-
-Raw blockchain API data can be difficult for normal users to interpret.
-
-### Phase 2 Solution
-
-The project converts raw Bitcoin network information into an accessible analytics platform containing:
-
-* Real-time metrics
-* Congestion indicators
+* Real-time mempool monitoring
+* Congestion score calculation
+* Network pressure classification
+* Pending transaction monitoring
+* Mempool virtual-size analysis
+* Memory utilization monitoring
 * Fee-market analysis
-* Block statistics
-* Trend visualizations
-* Network intelligence
-* Human-readable insights
+* Fast and economy fee recommendations
+* Fee-rate distribution visualization
+* Recent Bitcoin block information
+* Network intelligence insights
+* Live frontend/backend communication
+* Dockerized deployment architecture
 
 ---
 
-# ⭐ Phase 2 Enhancements
-
-Phase 2 focuses on improving the capabilities of the original PoC.
-
-## 1. Enhanced Dashboard
-
-The dashboard provides a centralized view of Bitcoin network conditions.
-
-It presents:
-
-* Mempool statistics
-* Transaction activity
-* Fee conditions
-* Congestion level
-* Recent block information
-* Analytical insights
-
----
-
-## 2. Congestion Intelligence
-
-Instead of displaying only raw mempool values, Phase 2 introduces a congestion-analysis layer.
-
-The system evaluates available network metrics and produces an understandable congestion condition.
-
-Example:
+## 🏗️ Architecture
 
 ```text
-Network Metrics
-      ↓
-Feature Analysis
-      ↓
-Congestion Score
-      ↓
-Condition Classification
-      ↓
-User-Friendly Explanation
-```
-
-Possible conditions include:
-
-* 🟢 Low
-* 🟡 Moderate
-* 🟠 High
-* 🔴 Critical
-
----
-
-## 3. Fee-Market Analysis
-
-The application analyzes current Bitcoin fee conditions.
-
-Users can understand:
-
-* Current fee pressure
-* Fee-rate conditions
-* Recommended fee ranges
-* Transaction priority
-* Potential confirmation implications
-
-This helps convert technical fee information into practical insights.
-
----
-
-## 4. Mempool Analytics
-
-Phase 2 provides detailed mempool information such as:
-
-* Pending transactions
-* Mempool size
-* Virtual size
-* Transaction pressure
-* Fee distribution
-* Congestion trends
-
----
-
-## 5. Block Analytics
-
-Recent Bitcoin blocks are analyzed to provide additional network context.
-
-The dashboard can display information such as:
-
-* Block height
-* Transaction count
-* Block size
-* Block weight
-* Fee information
-* Recent block activity
-
----
-
-## 6. Interactive Data Visualization
-
-Phase 2 improves the presentation of blockchain information through interactive charts.
-
-Visualizations can include:
-
-* Mempool activity
-* Congestion trends
-* Fee distribution
-* Block statistics
-* Transaction activity
-
-Charts make changes in network conditions easier to identify.
-
----
-
-## 7. Network Intelligence
-
-The Phase 2 application adds an intelligence-oriented presentation layer.
-
-### Intelligence Signals
-
-Identifies notable network conditions.
-
-### Why This Matters
-
-Explains the practical importance of the current condition.
-
-### What To Watch
-
-Highlights metrics or trends that users should monitor.
-
-### Network Summary
-
-Provides a simplified interpretation of current Bitcoin network activity.
-
----
-
-# 🏗️ Phase 2 Architecture
-
-```text
-                    ┌──────────────────────┐
-                    │   Bitcoin Network    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Mempool.space API  │
-                    └──────────┬───────────┘
-                               │
-                         API Requests
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    FastAPI Backend   │
-                    │        Python        │
-                    └──────────┬───────────┘
-                               │
-                    Data Processing Layer
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Analytics Engine   │
-                    │                      │
-                    │ • Mempool Analysis   │
-                    │ • Fee Analysis       │
-                    │ • Block Analysis     │
-                    │ • Congestion Score   │
-                    └──────────┬───────────┘
-                               │
-                       Processed Data
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    Next.js Frontend  │
-                    │ React + TypeScript   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-              ┌────────────────────────────────┐
-              │       Interactive Dashboard    │
-              │                                │
-              │ Metrics │ Charts │ Insights    │
-              │ Fees    │ Blocks │ Congestion  │
-              └────────────────────────────────┘
+                    ┌─────────────────────────┐
+                    │     Mempool.space API   │
+                    │   Bitcoin Network Data  │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │     FastAPI Backend      │
+                    │        Port 8000         │
+                    │                         │
+                    │ /api/mempool/            │
+                    │ /api/mempool/congestion │
+                    │ /api/analytics/dashboard│
+                    │ /api/analytics/          │
+                    │ intelligence             │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │     Next.js Frontend     │
+                    │        Port 3000         │
+                    │                         │
+                    │ Mempool Dashboard       │
+                    │ Charts & Analytics      │
+                    │ Network Intelligence    │
+                    └─────────────────────────┘
 ```
 
 ---
 
-# 🔄 Phase 2 Data Flow
+## 🛠️ Technology Stack
 
-```text
-1. User opens the dashboard
-             ↓
-2. Frontend requests network data
-             ↓
-3. FastAPI receives the request
-             ↓
-4. Backend requests data from
-   Mempool.space
-             ↓
-5. API returns Bitcoin network data
-             ↓
-6. Backend validates and processes data
-             ↓
-7. Analytics calculations are performed
-             ↓
-8. Congestion and fee conditions are derived
-             ↓
-9. Processed data is returned to frontend
-             ↓
-10. Dashboard updates metrics and charts
-             ↓
-11. User receives network intelligence
-```
-
----
-
-# 🛠️ Technology Stack
-
-## Frontend
+### Frontend
 
 * Next.js
 * React
-* TypeScript
-* Tailwind CSS
-* Recharts
-* Framer Motion
+* JavaScript / TypeScript
+* Responsive dashboard UI
+* Data visualization
 
-## Backend
+### Backend
 
-* Python
+* Python 3.11
 * FastAPI
-* REST API
+* Uvicorn
+* REST API architecture
+* Requests / HTTP-based data integration
 
-## External API
+### Infrastructure
 
-* Mempool.space API
+* Docker
+* Docker Compose
+* Linux-based containers
+* WSL2 on Windows
+* Container health checks
 
-## Development
+### Data Source
 
-* Visual Studio Code
-* Git
-* GitHub
-* Node.js
-* npm
-* Python
+* Mempool.space
+* Bitcoin mempool and blockchain data
 
 ---
 
-# 📁 Phase 2 Project Structure
+## 📁 Project Structure
 
 ```text
-POC-88-MempoolCongestionVisualizer-AswinSankar/
+POC-88-MempoolCongestionVisualizer-AswinSankar-Phase2/
 │
 ├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── public/
-│   ├── styles/
+│   ├── Dockerfile
+│   ├── .dockerignore
 │   ├── package.json
-│   └── ...
+│   ├── next.config.*
+│   └── application source
 │
 ├── backend/
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   ├── requirements.txt
 │   ├── main.py
-│   ├── routes/
-│   ├── services/
-│   ├── models/
-│   ├── analytics/
-│   └── ...
+│   └── application source
 │
-├── screenshots/
-│   ├── dashboard.png
-│   ├── congestion-analysis.png
-│   ├── fee-analysis.png
-│   └── block-analysis.png
+├── docs/
+│   ├── DOCKER_SETUP.md
+│   ├── ENVIRONMENT_CONFIGURATION.md
+│   ├── LOCAL_CONTAINER_VALIDATION.md
+│   └── TROUBLESHOOTING.md
 │
-├── README.md
-├── requirements.txt
+├── docker-compose.yml
+├── .env.example
 ├── .gitignore
-└── package.json
+├── README.md
+└── repomix-output.xml
 ```
 
-> Adjust the folder names above if your final Phase 2 implementation uses a different structure.
+> The exact repository structure may vary according to the current implementation.
 
 ---
 
-# 🔌 API Integration
-
-The application uses the **Mempool.space API** to obtain Bitcoin network information.
-
-The data source is used for retrieving information related to:
-
-* Mempool statistics
-* Fee estimates
-* Transactions
-* Blocks
-* Network activity
-
-The backend acts as an intermediary between the external API and the frontend.
-
-```text
-Frontend
-   ↓
-FastAPI
-   ↓
-Mempool.space API
-   ↓
-Bitcoin Network Data
-   ↓
-FastAPI Processing
-   ↓
-Frontend Dashboard
-```
-
----
-
-# 📊 Core Analytics
-
-| Analytics         | Purpose                                |
-| ----------------- | -------------------------------------- |
-| Mempool Size      | Measures pending transaction data      |
-| Transaction Count | Indicates transaction activity         |
-| Fee Rate          | Measures fee-market conditions         |
-| Fee Distribution  | Shows competition between transactions |
-| Congestion Score  | Simplifies network congestion          |
-| Congestion Level  | Classifies current network conditions  |
-| Block Statistics  | Provides recent block information      |
-| Trend Analysis    | Shows changes over time                |
-| Network Signals   | Identifies notable conditions          |
-
----
-
-# 🧠 Congestion Analysis
-
-A conceptual congestion-analysis pipeline is:
-
-```text
-Mempool Size
-Transaction Count
-Fee Conditions
-Block Activity
-      │
-      ▼
-Data Normalization
-      │
-      ▼
-Feature Analysis
-      │
-      ▼
-Congestion Score
-      │
-      ▼
-Congestion Classification
-      │
-      ▼
-Network Intelligence
-```
-
-The exact scoring methodology can be adjusted according to the implementation.
-
----
-
-# 💰 Fee Analysis
-
-The fee-analysis component helps users understand the relationship between:
-
-```text
-Transaction Demand
-        +
-Block Space
-        +
-Fee Rates
-        ↓
-Fee Market Pressure
-```
-
-The dashboard can provide practical classifications such as:
-
-* Low fee pressure
-* Normal fee pressure
-* Elevated fee pressure
-* High fee pressure
-
----
-
-# 📈 Visualization Layer
-
-The Phase 2 dashboard uses interactive visualizations to represent network activity.
-
-Potential visualizations include:
-
-### Mempool Trend
-
-Shows changes in mempool activity.
-
-### Fee Trend
-
-Shows changes in fee conditions.
-
-### Congestion Trend
-
-Shows whether congestion is increasing or decreasing.
-
-### Block Analytics
-
-Displays recent block characteristics.
-
-### Distribution Charts
-
-Shows the distribution of fee rates or transaction activity.
-
----
-
-# 🧠 Intelligence Layer
-
-The intelligence layer converts numerical metrics into readable insights.
-
-Example:
-
-```text
-Current Mempool Activity
-          ↓
-High Transaction Pressure
-          ↓
-Elevated Congestion
-          ↓
-Higher Fee Competition
-          ↓
-Potentially Longer Confirmation Times
-```
-
-This makes the application useful beyond basic data visualization.
-
----
-
-# 🖥️ Dashboard Components
-
-The Phase 2 dashboard can contain:
-
-```text
-┌─────────────────────────────────────────────┐
-│          MEMPOOL CONGESTION                 │
-│              VISUALIZER                    │
-├──────────────┬──────────────┬──────────────┤
-│ Mempool Size │ Transactions │ Congestion   │
-├──────────────┴──────────────┴──────────────┤
-│                                             │
-│           Congestion Chart                  │
-│                                             │
-├─────────────────────────────────────────────┤
-│ Fee Market        │ Recent Blocks           │
-├───────────────────┴─────────────────────────┤
-│                                             │
-│ Network Intelligence                        │
-│                                             │
-│ • Intelligence Signals                      │
-│ • Why This Matters                          │
-│ • What To Watch                             │
-│                                             │
-└─────────────────────────────────────────────┘
-```
-
----
-
-# ⚙️ Installation
+# 🚀 Getting Started
 
 ## Prerequisites
 
-Install:
+Install the following before running the project:
 
-* Python 3.11 or later
-* Node.js
-* npm
 * Git
-* Visual Studio Code
+* Docker Desktop
+* Docker Compose
+* WSL2 on Windows
+* Internet connectivity for live Mempool.space data
+
+Verify Docker:
+
+```powershell
+docker --version
+```
+
+Verify Docker Compose:
+
+```powershell
+docker compose version
+```
+
+Verify WSL:
+
+```powershell
+wsl --status
+```
 
 ---
 
-## Backend Setup
+# 🔐 Environment Configuration
 
-Open the project in VS Code.
+Create a local `.env` file if required by the current implementation.
 
-Navigate to the backend:
+Use `.env.example` as the safe configuration template.
 
-```bash
-cd backend
+Example:
+
+```env
+BACKEND_PORT=8000
+FRONTEND_PORT=3000
 ```
 
-Create a virtual environment:
+### Security
 
-```bash
-python -m venv .venv
-```
+Never commit:
 
-Activate it on Windows:
+* API keys
+* Passwords
+* Access tokens
+* Azure credentials
+* Database credentials
+* Private certificates
+* Secret connection strings
+
+The actual `.env` file should remain excluded through `.gitignore`.
+
+---
+
+# 🐳 Docker Setup
+
+## Build the application
+
+From the project root:
 
 ```powershell
-.venv\Scripts\Activate.ps1
+docker compose build
 ```
 
-Install dependencies:
+## Start the containers
 
-```bash
-pip install -r requirements.txt
+```powershell
+docker compose up
 ```
 
-Run FastAPI:
+Or run in detached mode:
 
-```bash
-uvicorn main:app --reload
+```powershell
+docker compose up -d
+```
+
+## Check container status
+
+```powershell
+docker compose ps
+```
+
+Expected services:
+
+```text
+poc88-backend
+poc88-frontend
+```
+
+The backend should report:
+
+```text
+Up (healthy)
+```
+
+---
+
+# 🌐 Application URLs
+
+### Frontend
+
+```text
+http://localhost:3000
+```
+
+### Backend
+
+```text
+http://localhost:8000
+```
+
+### FastAPI Documentation
+
+```text
+http://localhost:8000/docs
+```
+
+### Backend Health Check
+
+```text
+http://localhost:8000/health
+```
+
+---
+
+# 🔌 API Endpoints
+
+## Health
+
+```http
+GET /health
+```
+
+Used to verify backend availability.
+
+---
+
+## Mempool Data
+
+```http
+GET /api/mempool/
+```
+
+Provides current mempool information.
+
+---
+
+## Congestion Intelligence
+
+```http
+GET /api/mempool/congestion
+```
+
+Example response:
+
+```json
+{
+  "score": 21.69,
+  "level": "Low",
+  "transaction_count": 84451,
+  "virtual_size": 44564682,
+  "memory_usage_percent": 14.85,
+  "total_fee": 17084034,
+  "mempool_min_fee": 0,
+  "incremental_relay_fee": 0
+}
+```
+
+---
+
+## Analytics Dashboard
+
+```http
+GET /api/analytics/dashboard
+```
+
+Provides dashboard-level mempool analytics including:
+
+* Mempool statistics
+* Fee histogram
+* Transaction information
+* Network metrics
+* Blockchain activity
+
+---
+
+## Network Intelligence
+
+```http
+GET /api/analytics/intelligence
+```
+
+Provides higher-level interpretation of current network conditions.
+
+---
+
+# 📊 Dashboard Features
+
+The dashboard presents:
+
+### Network State
+
+Displays the current Bitcoin network pressure classification.
+
+### Congestion Score
+
+A normalized score from:
+
+```text
+0 → 100
+```
+
+used to represent current mempool pressure.
+
+### Mempool Pressure
+
+Visualizes recent network congestion observations.
+
+### Fee Market
+
+Displays fee-rate information and transaction competition for block space.
+
+### Fee Recommendations
+
+Provides fast-confirmation and economy fee references.
+
+### Pending Transactions
+
+Shows transactions currently waiting in the mempool.
+
+### Mempool Size
+
+Displays virtual transaction size currently occupying the mempool.
+
+### Memory Usage
+
+Shows the percentage of node memory associated with the mempool.
+
+### Fee Distribution
+
+Visualizes transaction volume across fee-rate ranges.
+
+### Recent Bitcoin Blocks
+
+Displays recent block activity when available.
+
+### Network Intelligence
+
+Provides contextual interpretation of current network conditions.
+
+---
+
+# 🧪 Local Container Validation
+
+The application has been validated using Docker Compose.
+
+## Container status
+
+```powershell
+docker compose ps
+```
+
+Validated services:
+
+```text
+poc88-backend
+poc88-frontend
 ```
 
 Backend:
 
 ```text
-http://127.0.0.1:8000
+Healthy
+```
+
+Frontend:
+
+```text
+Running
 ```
 
 ---
 
-# Frontend Setup
+## Backend API Validation
 
-Open a second terminal:
+The following endpoint was successfully verified:
 
-```bash
-cd frontend
+```powershell
+Invoke-WebRequest `
+  -Uri "http://localhost:8000/api/mempool/congestion" `
+  -UseBasicParsing
 ```
 
-Install dependencies:
+Result:
 
-```bash
-npm install
+```text
+StatusCode : 200
 ```
 
-Run the application:
+The analytics endpoint was also verified:
 
-```bash
-npm run dev
+```powershell
+Invoke-WebRequest `
+  -Uri "http://localhost:8000/api/analytics/dashboard" `
+  -UseBasicParsing
 ```
 
-Frontend:
+Result:
+
+```text
+StatusCode : 200
+```
+
+---
+
+# 🔗 Frontend-to-Backend Validation
+
+The containerized frontend successfully communicates with the FastAPI backend.
+
+Validated API requests include:
+
+```text
+GET /api/mempool/congestion       200 OK
+GET /api/analytics/dashboard      200 OK
+GET /api/analytics/intelligence   200 OK
+GET /health                       200 OK
+```
+
+This confirms the frontend/backend handshake is functioning inside the Docker environment.
+
+---
+
+# 🔄 Restart Validation
+
+The application was tested through a container restart cycle.
+
+Stop:
+
+```powershell
+docker compose down
+```
+
+Start:
+
+```powershell
+docker compose up -d
+```
+
+Verify:
+
+```powershell
+docker compose ps
+```
+
+Expected:
+
+```text
+poc88-backend    Up ... (healthy)
+poc88-frontend   Up ...
+```
+
+After restart, the backend continued returning successful API responses and the frontend remained accessible.
+
+---
+
+# 📋 Logs
+
+## Backend logs
+
+```powershell
+docker compose logs backend
+```
+
+Recent successful requests include:
+
+```text
+GET /health 200 OK
+GET /api/mempool/congestion 200 OK
+GET /api/analytics/dashboard 200 OK
+GET /api/analytics/intelligence 200 OK
+```
+
+## Frontend logs
+
+```powershell
+docker compose logs frontend
+```
+
+Expected startup information:
+
+```text
+Next.js
+Local: http://localhost:3000
+Network: http://0.0.0.0:3000
+Ready
+```
+
+---
+
+# 🛑 Stop the Application
+
+```powershell
+docker compose down
+```
+
+---
+
+# 🔁 Restart the Application
+
+```powershell
+docker compose restart
+```
+
+Or perform a complete restart:
+
+```powershell
+docker compose down
+docker compose up -d
+```
+
+---
+
+# 🧹 Rebuild Containers
+
+If Dockerfiles or dependencies change:
+
+```powershell
+docker compose down
+docker compose build
+docker compose up -d
+```
+
+---
+
+# 🐛 Troubleshooting
+
+## Docker command not recognized
+
+Verify Docker Desktop is installed and running:
+
+```powershell
+docker --version
+```
+
+Then verify:
+
+```powershell
+docker compose version
+```
+
+---
+
+## Backend is unhealthy
+
+Check:
+
+```powershell
+docker compose logs backend
+```
+
+Then verify:
+
+```text
+http://localhost:8000/health
+```
+
+---
+
+## Frontend is not loading
+
+Check:
+
+```powershell
+docker compose logs frontend
+```
+
+Then open:
 
 ```text
 http://localhost:3000
@@ -641,193 +623,104 @@ http://localhost:3000
 
 ---
 
-# 🔐 Environment Variables
+## Dashboard displays zero data
 
-If environment variables are required by the implementation, create a `.env` file.
+Verify the backend:
 
-Example:
-
-```env
-API_BASE_URL=your_api_endpoint
+```powershell
+Invoke-WebRequest `
+  -Uri "http://localhost:8000/api/mempool/congestion" `
+  -UseBasicParsing
 ```
 
-Do not commit sensitive credentials to GitHub.
+Then check:
 
-Add environment files to `.gitignore` where appropriate.
+```powershell
+docker compose logs backend --tail=100
+```
 
----
-
-# 🧪 Testing Checklist
-
-Before submitting Phase 2, verify:
-
-* [ ] Backend starts successfully
-* [ ] Frontend starts successfully
-* [ ] API requests work
-* [ ] Mempool data loads
-* [ ] Fee data loads
-* [ ] Block data loads
-* [ ] Congestion calculation works
-* [ ] Charts render correctly
-* [ ] Dashboard updates correctly
-* [ ] Error handling works
-* [ ] Loading states work
-* [ ] Responsive design works
-* [ ] No API credentials are exposed
-* [ ] GitHub repository contains required files
+The application requires access to its configured external Bitcoin data source for live network information.
 
 ---
 
-# 🐛 Error Handling
+## Backend API returns 502
 
-The application should gracefully handle:
+A `502 Bad Gateway` from the analytics endpoints can indicate that the backend cannot reach the upstream Mempool.space data source.
 
-* API timeout
-* API unavailable
-* Invalid API response
-* Missing data
-* Network connection failure
-* Backend failure
-* Frontend request failure
+Check external connectivity and then retry:
 
-Instead of crashing, the dashboard should provide a meaningful status or error message.
-
----
-
-# 🔒 Security Considerations
-
-The application is designed for analytics and visualization.
-
-It does **not** require:
-
-* Private Bitcoin keys
-* Wallet credentials
-* Transaction signing
-* User funds
-* Custodial wallet access
-
-External API credentials, when applicable, should be stored securely using environment variables.
-
----
-
-# 🎓 Skills Demonstrated
-
-Phase 2 demonstrates practical experience in:
-
-### Programming
-
-* Python
-* TypeScript
-* JavaScript
-
-### Backend Development
-
-* FastAPI
-* REST APIs
-* API integration
-* Data processing
-
-### Frontend Development
-
-* React
-* Next.js
-* Tailwind CSS
-* Responsive UI
-
-### Data & Analytics
-
-* Data transformation
-* Statistical analysis
-* Trend analysis
-* Data visualization
-* KPI development
-
-### Blockchain
-
-* Bitcoin
-* Mempool
-* Block data
-* Transaction fees
-* Block space
-* Network congestion
-
-### Software Engineering
-
-* Modular architecture
-* Error handling
-* Environment configuration
-* Git
-* GitHub
-* Project documentation
-
----
-
-# 🔮 Future Enhancements
-
-Future versions could introduce:
-
-* Historical database storage
-* WebSocket-based live updates
-* Machine-learning congestion prediction
-* Fee forecasting
-* Confirmation-time prediction
-* Advanced historical analytics
-* User-configurable alerts
-* Cloud deployment
-* Docker containerization
-* Automated monitoring
-* Blockchain data warehouse
-* Advanced anomaly detection
-
----
-
-# 📸 Screenshots
-
-Add Phase 2 screenshots here:
-
-```markdown
-## Dashboard
-
-![Phase 2 Dashboard](screenshots/dashboard.png)
-
-## Congestion Analysis
-
-![Congestion Analysis](screenshots/congestion-analysis.png)
-
-## Fee Analysis
-
-![Fee Analysis](screenshots/fee-analysis.png)
-
-## Block Analytics
-
-![Block Analytics](screenshots/block-analysis.png)
+```powershell
+docker compose restart backend
 ```
 
 ---
 
-# 🏁 Phase 2 Outcome
+# 📦 Repomix
 
-Phase 2 transforms the original **Mempool Congestion Visualizer PoC** into a more structured and feature-rich Bitcoin network analytics application.
+Generate an up-to-date project context from the Phase 2 repository root:
 
-The project demonstrates the complete flow:
-
-```text
-Real-Time Blockchain Data
-          ↓
-API Integration
-          ↓
-Backend Processing
-          ↓
-Analytics
-          ↓
-Congestion Intelligence
-          ↓
-Interactive Visualization
-          ↓
-User-Facing Network Insights
+```powershell
+npx repomix
 ```
 
-The result is a practical dashboard for understanding Bitcoin mempool conditions, transaction activity, fee-market pressure, and recent block activity.
+This generates the project context used for architecture review and cloud-readiness workflows.
+
+---
+
+# 🔐 Git Safety
+
+Before pushing changes:
+
+```powershell
+git status
+```
+
+Ensure `.env` and other secret-containing files are not staged.
+
+Then:
+
+```powershell
+git add .
+git commit -m "Complete Phase 2 Docker validation"
+git push
+```
+
+---
+
+# 📸 Validation Evidence
+
+Recommended Phase 2 evidence:
+
+1. Successful Docker image build
+2. Running frontend and backend containers
+3. `docker compose ps`
+4. Frontend dashboard running
+5. Working visualization
+6. Backend API returning `200 OK`
+7. Backend logs
+8. Frontend logs
+9. Successful container restart
+10. Frontend/backend communication after restart
+
+---
+
+# 🎯 Phase 2 Status
+
+| Validation                        | Status |
+| --------------------------------- | ------ |
+| Docker installation               | ✅ PASS |
+| WSL2 environment                  | ✅ PASS |
+| Backend container                 | ✅ PASS |
+| Frontend container                | ✅ PASS |
+| Backend health check              | ✅ PASS |
+| Mempool API                       | ✅ PASS |
+| Analytics API                     | ✅ PASS |
+| Frontend-to-backend communication | ✅ PASS |
+| Live data loading                 | ✅ PASS |
+| Container restart validation      | ✅ PASS |
+| Docker Compose                    | ✅ PASS |
+| Dashboard visualization           | ✅ PASS |
+| Phase 2 Docker validation         | ✅ PASS |
 
 ---
 
@@ -835,20 +728,18 @@ The result is a practical dashboard for understanding Bitcoin mempool conditions
 
 **Aswin Sankar P.S**
 
-AI & Data Science | Machine Learning | Generative AI | Data Analytics | Blockchain Analytics
+**Role:** AI Engineer Intern — Infocreon
 
-**GitHub:** `sankeraswin579-crypto`
+**PoC:** POC-88
 
-**PoC:** `POC-88`
+**Project:** Mempool Congestion Visualizer
 
-**Project:** `Mempool Congestion Visualizer`
-
-**Phase:** `Phase 2`
+**Phase:** Phase 2 — Local-to-Cloud Containerization
 
 ---
 
-## 📜 Disclaimer
+# 📌 Current Status
 
-This project is developed as a technical Proof of Concept for educational, analytical, and internship project purposes.
+**Ready for Docker Review**
 
-It provides network information and analytics and should not be considered financial or investment advice.
+The application successfully runs as a containerized frontend/backend system with live Bitcoin mempool data, verified API communication, successful restart behaviour, and Docker Compose orchestration.
