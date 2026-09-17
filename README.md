@@ -1,226 +1,393 @@
 # POC-88 — Mempool Congestion Visualizer
 
-**Phase 2 Deployment | Aswin Sankar P.S.**
+## Phase 3 — Data Foundation, Dockerization & Production Readiness
 
-A real-time Bitcoin mempool intelligence dashboard that analyzes transaction congestion, fee conditions, memory usage, and transaction activity using live public blockchain data.
+**Project:** Mempool Congestion Visualizer
+**Developer:** Aswin Sankar P.S.
+**Phase:** Phase 3
+**Repository:** `POC-88-MempoolCongestionVisualizer-AswinSankar-Phase3`
 
 ---
 
-## 🚀 Project Overview
+## 1. Project Overview
 
-**POC-88 — Mempool Congestion Visualizer** is a Phase 2 intelligence engineering application focused on Bitcoin transaction infrastructure.
+POC-88 Mempool Congestion Visualizer is a full-stack data visualization and intelligence application designed to monitor and explain Bitcoin mempool activity.
 
-The application transforms live mempool data into an interactive dashboard that helps users understand:
+The application retrieves live blockchain mempool information, processes congestion-related metrics through a FastAPI backend, and presents the results through an interactive Next.js dashboard.
 
-* Current mempool congestion
-* Transaction volume
-* Mempool memory utilization
-* Fee conditions
+### Phase 3 Focus
+
+Phase 3 extends the Phase 2 implementation by establishing a cleaner and more deployment-ready project foundation.
+
+The main objectives are:
+
+* Establish a structured data foundation
+* Improve backend and frontend integration
+* Prepare the application for containerized execution
+* Introduce Docker/Docker Compose configuration
+* Improve environment-variable management
+* Organize documentation and project evidence
+* Maintain a clean GitHub repository
+* Prepare the application for reliable deployment and testing
+
+---
+
+# 2. Key Features
+
+### Live Mempool Data
+
+The application consumes blockchain mempool information through the `mempool.space` API.
+
+Example data includes:
+
+* Transaction count
+* Virtual size
+* Mempool memory usage
+* Fee information
+* Congestion indicators
 * Transaction activity
-* Congestion level and score
-* Transaction inclusion conditions
-
-The project demonstrates the application of the Real Rails intelligence engineering model to a blockchain infrastructure domain.
 
 ---
 
-## 🎯 Objectives
+### Congestion Analysis
 
-The main objectives of POC-88 are to:
+The backend processes the retrieved data and calculates a congestion score.
 
-* Analyze live Bitcoin mempool activity.
-* Convert raw blockchain data into actionable intelligence.
-* Visualize congestion and fee-market conditions.
-* Provide an interactive monitoring experience.
-* Demonstrate real-time public API integration.
-* Build a production-style full-stack application.
-* Apply AI-assisted engineering and structured development practices.
+The dashboard can classify congestion into states such as:
+
+```text
+LOW
+MEDIUM
+HIGH
+CRITICAL
+```
+
+This provides a simplified interpretation of raw blockchain network activity.
 
 ---
 
-## 🏗️ Architecture
+### Interactive Dashboard
+
+The frontend provides visual representations of the processed data.
+
+Dashboard components include:
+
+* Congestion score
+* Transaction metrics
+* Memory usage
+* Virtual size
+* Fee metrics
+* Historical/visual analytics
+* Status indicators
+* Responsive UI components
+
+---
+
+# 3. System Architecture
 
 ```text
                     ┌──────────────────────┐
-                    │      User / Browser  │
+                    │   Mempool.space API  │
                     └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     FastAPI Backend  │
+                    │                      │
+                    │ Data Retrieval       │
+                    │ Processing           │
+                    │ Congestion Analysis  │
+                    │ REST API             │
+                    └──────────┬───────────┘
+                               │
+                         REST / JSON
                                │
                                ▼
                     ┌──────────────────────┐
                     │   Next.js Frontend   │
-                    │   Interactive UI     │
-                    └──────────┬───────────┘
-                               │
-                         REST API Requests
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   FastAPI Backend    │
-                    │   Data Processing    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Mempool.space API  │
-                    │   Live Bitcoin Data  │
+                    │                      │
+                    │ Dashboard            │
+                    │ Charts               │
+                    │ Metrics              │
+                    │ Visual Analytics     │
                     └──────────────────────┘
 ```
 
 ---
 
-## 🛠️ Technology Stack
+# 4. Technology Stack
 
-### Frontend
+## Frontend
 
 * Next.js
 * React
 * TypeScript
 * Tailwind CSS
-* Responsive dashboard UI
+* Recharts
+* Framer Motion
 
-### Backend
+## Backend
 
 * Python
 * FastAPI
-* Uvicorn
 * REST APIs
+* HTTP/API integration
+* Data processing
 
-### Data Source
+## Data Source
 
-* Mempool.space public API
+* Mempool.space API
 
-### Deployment
+## DevOps
 
-* **Frontend:** Vercel
-* **Backend:** Render
+* Docker
+* Docker Compose
+* Environment variables
+* Containerized development
 
----
+## Development Tools
 
-## 📊 Dashboard Capabilities
-
-The dashboard provides intelligence around:
-
-### Mempool Activity
-
-* Current transaction count
-* Virtual memory size
-* Mempool memory utilization
-* Total transaction fees
-
-### Congestion Intelligence
-
-* Congestion score
-* Congestion classification
-* Current network conditions
-* Transaction pressure indicators
-
-### Fee Intelligence
-
-* Minimum mempool fee
-* Incremental relay fee
-* Fee-market conditions
-* Transaction inclusion estimates
-
-### Visualization
-
-The frontend converts backend analytics into interactive visual components so users can understand the current Bitcoin mempool state quickly.
+* Git
+* GitHub
+* Visual Studio Code
+* PowerShell
 
 ---
 
-## 🔌 Backend API
+# 5. Backend
 
-The FastAPI backend exposes REST endpoints for retrieving mempool and congestion information.
+The backend is implemented using FastAPI.
 
-Example:
+Its responsibilities include:
 
-```text
-GET /api/mempool/
-```
+1. Connecting to the external mempool API
+2. Retrieving current mempool information
+3. Processing the raw API response
+4. Calculating congestion-related metrics
+5. Returning structured JSON responses
+6. Providing REST endpoints for the frontend
+
+Example endpoint:
 
 ```text
 GET /api/mempool/congestion
 ```
 
-The congestion endpoint returns calculated intelligence such as:
+Example response structure:
 
 ```json
 {
-  "score": 21.69,
-  "level": "Low",
-  "transaction_count": 84451,
-  "virtual_size": 44564682,
-  "memory_usage_percent": 14.85,
-  "total_fee": 17084034,
-  "mempool_min_fee": 0,
-  "incremental_relay_fee": 0
+  "score": 20.83,
+  "status": "Low",
+  "transactions": 86902,
+  "vsize": 39874437,
+  "memory_usage": 13.29
 }
 ```
 
-Values change according to the live/source data available at runtime.
+---
+
+# 6. Frontend
+
+The frontend is built with Next.js and React.
+
+It consumes backend REST endpoints and converts the returned data into an interactive dashboard.
+
+The frontend is responsible for:
+
+* API communication
+* Dashboard rendering
+* Data visualization
+* Responsive layout
+* Metric cards
+* Charts
+* Status indicators
+* User-friendly interpretation of blockchain data
 
 ---
 
-## 🌐 Deployment
+# 7. Data Foundation
 
-### Frontend
+Phase 3 establishes a structured foundation for handling mempool data.
 
-The Next.js frontend is deployed using **Vercel**.
+### Data Flow
 
-### Backend
-
-The FastAPI backend is deployed using **Render**.
-
-The frontend communicates with the deployed backend through the configured API endpoint.
-
-> Do not use `localhost` or `127.0.0.1` in the production frontend configuration.
-
----
-
-## 🔐 Configuration
-
-Environment variables should be configured through the deployment platforms rather than committing secrets to GitHub.
-
-Example frontend configuration:
-
-```env
-NEXT_PUBLIC_API_URL=<DEPLOYED_BACKEND_URL>
+```text
+External API
+     ↓
+API Response
+     ↓
+FastAPI
+     ↓
+Data Validation
+     ↓
+Metric Processing
+     ↓
+Congestion Calculation
+     ↓
+JSON Response
+     ↓
+Next.js
+     ↓
+Charts + Dashboard
 ```
 
-Example backend configuration:
+The architecture separates data acquisition, processing, API delivery, and visualization.
 
-```env
-PORT=8000
-```
-
-Actual production values should be configured in Vercel/Render environment settings.
+This makes the application easier to test, maintain and extend.
 
 ---
 
-## 💻 Local Development
+# 8. Congestion Score
 
-### Backend
+The application converts multiple mempool indicators into a simplified congestion score.
+
+Relevant indicators include:
+
+* Number of transactions
+* Mempool virtual size
+* Memory utilization
+* Fee pressure
+* Network activity
+
+The resulting score is presented as an interpretable congestion status.
+
+Example:
+
+```text
+Score: 20.83
+
+Status:
+LOW
+```
+
+The scoring mechanism is intended as a dashboard interpretation layer rather than a replacement for detailed blockchain network analysis.
+
+---
+
+# 9. Dockerization
+
+Phase 3 introduces containerization preparation for the application.
+
+The project includes:
+
+```text
+docker-compose.yml
+```
+
+The intended container architecture separates the application into independently manageable services.
+
+```text
+Docker Compose
+│
+├── Backend
+│   └── FastAPI
+│
+└── Frontend
+    └── Next.js
+```
+
+Benefits include:
+
+* Reproducible development environment
+* Simplified setup
+* Service isolation
+* Consistent runtime configuration
+* Easier deployment
+* Easier testing
+
+---
+
+# 10. Environment Configuration
+
+Sensitive configuration should not be hard-coded into the source code.
+
+The project includes:
+
+```text
+.env.example
+```
+
+Developers can create their local environment configuration from this template.
+
+Example:
+
+```text
+BACKEND_URL=
+NEXT_PUBLIC_API_URL=
+```
+
+Actual secrets and private configuration should remain outside GitHub.
+
+---
+
+# 11. Project Structure
+
+```text
+POC-88-MempoolCongestionVisualizer-AswinSankar-Phase3/
+│
+├── backend/
+│   ├── API implementation
+│   ├── data processing
+│   └── congestion logic
+│
+├── frontend/
+│   ├── Next.js application
+│   ├── dashboard components
+│   ├── charts
+│   └── UI components
+│
+├── docs/
+│   ├── project documentation
+│   └── phase documentation
+│
+├── screenshots/
+│   └── project evidence
+│
+├── docker-compose.yml
+├── .env.example
+├── package-lock.json
+├── README.md
+└── README.MD
+```
+
+---
+
+# 12. Local Development
+
+## Clone Repository
 
 ```bash
-cd backend
-
-python -m venv .venv
+git clone <repository-url>
+cd POC-88-MempoolCongestionVisualizer-AswinSankar-Phase3
 ```
 
-Windows:
+---
+
+## Backend
+
+Navigate to the backend:
 
 ```powershell
+cd backend
+```
+
+Create/activate the Python environment:
+
+```powershell
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
 Install dependencies:
 
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
-Start the API:
+Run FastAPI:
 
-```bash
+```powershell
 uvicorn main:app --reload --port 8000
 ```
 
@@ -230,15 +397,31 @@ Backend:
 http://localhost:8000
 ```
 
+API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
 ---
 
-### Frontend
+# 13. Frontend
 
-Open another terminal:
+Open another terminal.
 
-```bash
+```powershell
 cd frontend
+```
+
+Install dependencies:
+
+```powershell
 npm install
+```
+
+Start development server:
+
+```powershell
 npm run dev
 ```
 
@@ -250,141 +433,301 @@ http://localhost:3000
 
 ---
 
-## 🐳 Docker Support
+# 14. Docker Execution
 
-The application can be containerized using separate frontend and backend containers.
+From the project root:
 
-Expected architecture:
-
-```text
-Frontend Container
-       │
-       │ HTTP API
-       ▼
-Backend Container
-       │
-       ▼
-Mempool.space API
+```powershell
+docker compose up --build
 ```
 
-The production deployment uses managed cloud platforms rather than requiring users to run the containers manually.
+To run in detached mode:
 
----
+```powershell
+docker compose up --build -d
+```
 
-## 🔄 Data Flow
+To stop the containers:
 
-```text
-Bitcoin Network
-      │
-      ▼
-Mempool.space API
-      │
-      ▼
-FastAPI Backend
-      │
-      ├── Fetch mempool data
-      ├── Process metrics
-      ├── Calculate congestion
-      └── Prepare API response
-      │
-      ▼
-Next.js Frontend
-      │
-      ▼
-Interactive Intelligence Dashboard
+```powershell
+docker compose down
+```
+
+To view running containers:
+
+```powershell
+docker compose ps
+```
+
+To view logs:
+
+```powershell
+docker compose logs
 ```
 
 ---
 
-## 🧪 Validation
+# 15. API Testing
 
-The application should be validated for:
+FastAPI provides interactive API documentation.
 
-* Frontend availability
-* Backend API availability
-* API-to-frontend communication
-* Live data retrieval
-* Congestion calculations
-* Dashboard rendering
-* Responsive UI
+Open:
+
+```text
+http://localhost:8000/docs
+```
+
+Test:
+
+```text
+GET /api/mempool/congestion
+```
+
+The endpoint should return structured mempool and congestion information.
+
+---
+
+# 16. Testing Checklist
+
+### Backend
+
+* [ ] FastAPI starts successfully
+* [ ] API endpoint responds
+* [ ] External API connection works
+* [ ] Data is processed correctly
+* [ ] Congestion score is returned
+* [ ] Error handling works
+
+### Frontend
+
+* [ ] Next.js starts successfully
+* [ ] Dashboard loads
+* [ ] Backend API connection works
+* [ ] Metrics render correctly
+* [ ] Charts render correctly
+* [ ] Responsive layout works
+
+### Docker
+
+* [ ] Docker image builds successfully
+* [ ] Backend container starts
+* [ ] Frontend container starts
+* [ ] Services communicate correctly
+* [ ] Environment configuration works
+
+---
+
+# 17. Phase 3 Engineering Objectives
+
+Phase 3 demonstrates practical experience in:
+
+### Software Engineering
+
+* Full-stack application development
+* REST API development
+* Frontend/backend integration
+* Modular project structure
+* Environment configuration
 * Error handling
-* Production environment configuration
-* Backend restart/recovery
+
+### Data Engineering
+
+* External API ingestion
+* Data transformation
+* Metric calculation
+* Structured JSON data
+* Data visualization pipeline
+
+### AI/Data/Analytics Engineering
+
+* Real-time data interpretation
+* Analytical scoring
+* Dashboard intelligence
+* Visualization of operational metrics
+* Data-driven status classification
+
+### DevOps
+
+* Docker
+* Docker Compose
+* Containerized services
+* Environment management
+* Deployment preparation
+
+### Version Control
+
+* Git
+* GitHub
+* Branch management
+* Repository migration
+* Merge conflict resolution
+* Clean working tree management
 
 ---
 
-## 📁 Project Structure
+# 18. Phase 3 Repository History
+
+The Phase 3 repository was initialized and migrated into the dedicated GitHub repository.
+
+Important repository operations included:
 
 ```text
-POC-88-MempoolCongestionVisualizer-AswinSankar-Phase2/
-│
-├── backend/
-│   ├── main.py
-│   ├── routes/
-│   ├── services/
-│   ├── requirements.txt
-│   └── Dockerfile
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── public/
-│   ├── package.json
-│   └── Dockerfile
-│
-├── docker-compose.yml
-├── README.md
-└── .env.example
+Repository initialization
+        ↓
+Remote configuration
+        ↓
+Fetch existing repository state
+        ↓
+Merge repository initialization
+        ↓
+Resolve repository history
+        ↓
+Push Phase 3 implementation
+        ↓
+Verify origin/main
+        ↓
+Clean working tree
+```
+
+Final repository state:
+
+```text
+Branch: main
+Remote: origin/main
+Status: Up to date
+Working tree: Clean
 ```
 
 ---
 
-## 🎬 Phase 2 Focus
+# 19. Phase 2 → Phase 3 Evolution
 
-This Phase 2 implementation extends the initial PoC into a more complete application with emphasis on:
-
-1. Production-oriented application structure
-2. Full-stack frontend/backend integration
-3. Live external data handling
-4. Interactive intelligence visualization
-5. Deployment readiness
-6. Containerization
-7. Cloud deployment
-8. Validation and operational reliability
+```text
+PHASE 2
+│
+├── POC implementation
+├── FastAPI backend
+├── Next.js frontend
+├── Mempool.space integration
+├── Dashboard
+└── Cloud deployment/testing
+        │
+        ▼
+PHASE 3
+│
+├── Data foundation
+├── Structured architecture
+├── Dockerization
+├── Environment configuration
+├── Documentation
+├── Evidence organization
+├── Repository migration
+└── Production-readiness preparation
+```
 
 ---
 
-## 👨‍💻 Developer
+# 20. Practical Engineering Outcome
+
+This project demonstrates the ability to build a complete data-driven web application from external data ingestion through backend processing and frontend visualization.
+
+The implementation combines:
+
+```text
+Python
++
+FastAPI
++
+REST APIs
++
+External Data
++
+Data Processing
++
+Next.js
++
+React
++
+TypeScript
++
+Data Visualization
++
+Docker
++
+Git/GitHub
+```
+
+into a single full-stack engineering workflow.
+
+---
+
+# 21. Skills Demonstrated
+
+```text
+Python
+FastAPI
+REST API Development
+Next.js
+React
+TypeScript
+Tailwind CSS
+Recharts
+Framer Motion
+API Integration
+Data Processing
+Data Visualization
+Real-Time Data
+Docker
+Docker Compose
+Environment Configuration
+Git
+GitHub
+Full-Stack Development
+Backend Development
+Frontend Development
+Data Engineering
+Analytics Engineering
+Cloud Deployment Preparation
+```
+
+---
+
+# 22. Developer
 
 **Aswin Sankar P.S.**
 
-GitHub:
+AI Engineer | AI/ML | Data Science | Generative AI | Full-Stack Development
 
-https://github.com/sankeraswin579-crypto
+Practical focus:
 
-Repository:
-
-https://github.com/sankeraswin579-crypto/POC-88-MempoolCongestionVisualizer-AswinSankar-Phase2
-
----
-
-## 📌 Project Status
-
-**POC-88 — Mempool Congestion Visualizer**
-
-**Phase 2 — Deployed**
-
-Frontend: **Vercel**
-
-Backend: **Render**
-
-The application is intended to demonstrate a production-oriented blockchain intelligence dashboard built using modern full-stack technologies.
+* AI Engineering
+* Machine Learning
+* Data Science
+* Generative AI
+* RAG
+* Agentic AI
+* Python
+* Full-Stack Development
+* Backend APIs
+* Data Engineering
+* Cloud & Deployment
+* Data Visualization
 
 ---
 
-## ⚠️ Disclaimer
+## Project Signature
 
-This project is intended for technical demonstration, data visualization, and blockchain infrastructure analysis.
+```text
+Designed & Transformed By
+Aswin Sankar P.S.
 
-It does not provide financial advice or guarantee transaction confirmation times.
+Real Rails Internship
+POC-88 — Mempool Congestion Visualizer
+Phase 3
+```
+
+---
+
+## License
+
+This project is developed for educational, internship, portfolio, demonstration and engineering evaluation purposes.
