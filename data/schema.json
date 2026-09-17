@@ -1,0 +1,116 @@
+﻿{
+  "record_id": {
+    "type": "string",
+    "required": true,
+    "nullable": false,
+    "unique": true
+  },
+  "record_type": {
+    "type": "string",
+    "required": true,
+    "nullable": false,
+    "allowed_values": [
+      "entity",
+      "event",
+      "transaction",
+      "measurement",
+      "process",
+      "scenario",
+      "node",
+      "edge",
+      "document"
+    ]
+  },
+  "observed_at": {
+    "type": "datetime",
+    "required": false,
+    "nullable": true,
+    "format": "ISO-8601"
+  },
+  "entity_id": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "related_entity_id": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "entity_name": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "category": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "subcategory": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "status": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "stage": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "metric_name": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "metric_value": {
+    "type": "number",
+    "required": false,
+    "nullable": true
+  },
+  "metric_unit": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "text_value": {
+    "type": "string",
+    "required": false,
+    "nullable": true,
+    "max_length": 500
+  },
+  "latitude": {
+    "type": "number",
+    "required": false,
+    "nullable": true
+  },
+  "longitude": {
+    "type": "number",
+    "required": false,
+    "nullable": true
+  },
+  "source_name": {
+    "type": "string",
+    "required": true,
+    "nullable": false
+  },
+  "source_record_id": {
+    "type": "string",
+    "required": false,
+    "nullable": true
+  },
+  "is_synthetic": {
+    "type": "boolean",
+    "required": true,
+    "nullable": false
+  },
+  "data_version": {
+    "type": "string",
+    "required": true,
+    "nullable": false
+  }
+}
