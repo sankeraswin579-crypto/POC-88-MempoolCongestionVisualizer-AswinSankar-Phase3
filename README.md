@@ -1,6 +1,6 @@
-# POC-88 — Mempool Congestion Visualizer
+# POC-88 Ã¢â‚¬â€ Mempool Congestion Visualizer
 
-## Phase 3 — Data Foundation, Dockerization & Production Readiness
+## Phase 3 Ã¢â‚¬â€ Data Foundation, Dockerization & Production Readiness
 
 **Project:** Mempool Congestion Visualizer
 **Developer:** Aswin Sankar P.S.
@@ -86,31 +86,31 @@ Dashboard components include:
 # 3. System Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │   Mempool.space API  │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │     FastAPI Backend  │
-                    │                      │
-                    │ Data Retrieval       │
-                    │ Processing           │
-                    │ Congestion Analysis  │
-                    │ REST API             │
-                    └──────────┬───────────┘
-                               │
+                    Ã¢â€Å’Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Â
+                    Ã¢â€â€š   Mempool.space API  Ã¢â€â€š
+                    Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Â¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Ëœ
+                               Ã¢â€â€š
+                               Ã¢â€“Â¼
+                    Ã¢â€Å’Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Â
+                    Ã¢â€â€š     FastAPI Backend  Ã¢â€â€š
+                    Ã¢â€â€š                      Ã¢â€â€š
+                    Ã¢â€â€š Data Retrieval       Ã¢â€â€š
+                    Ã¢â€â€š Processing           Ã¢â€â€š
+                    Ã¢â€â€š Congestion Analysis  Ã¢â€â€š
+                    Ã¢â€â€š REST API             Ã¢â€â€š
+                    Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Â¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Ëœ
+                               Ã¢â€â€š
                          REST / JSON
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Next.js Frontend   │
-                    │                      │
-                    │ Dashboard            │
-                    │ Charts               │
-                    │ Metrics              │
-                    │ Visual Analytics     │
-                    └──────────────────────┘
+                               Ã¢â€â€š
+                               Ã¢â€“Â¼
+                    Ã¢â€Å’Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Â
+                    Ã¢â€â€š   Next.js Frontend   Ã¢â€â€š
+                    Ã¢â€â€š                      Ã¢â€â€š
+                    Ã¢â€â€š Dashboard            Ã¢â€â€š
+                    Ã¢â€â€š Charts               Ã¢â€â€š
+                    Ã¢â€â€š Metrics              Ã¢â€â€š
+                    Ã¢â€â€š Visual Analytics     Ã¢â€â€š
+                    Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€Ëœ
 ```
 
 ---
@@ -214,21 +214,21 @@ Phase 3 establishes a structured foundation for handling mempool data.
 
 ```text
 External API
-     ↓
+     Ã¢â€ â€œ
 API Response
-     ↓
+     Ã¢â€ â€œ
 FastAPI
-     ↓
+     Ã¢â€ â€œ
 Data Validation
-     ↓
+     Ã¢â€ â€œ
 Metric Processing
-     ↓
+     Ã¢â€ â€œ
 Congestion Calculation
-     ↓
+     Ã¢â€ â€œ
 JSON Response
-     ↓
+     Ã¢â€ â€œ
 Next.js
-     ↓
+     Ã¢â€ â€œ
 Charts + Dashboard
 ```
 
@@ -279,12 +279,12 @@ The intended container architecture separates the application into independently
 
 ```text
 Docker Compose
-│
-├── Backend
-│   └── FastAPI
-│
-└── Frontend
-    └── Next.js
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Backend
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ FastAPI
+Ã¢â€â€š
+Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ Frontend
+    Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ Next.js
 ```
 
 Benefits include:
@@ -325,30 +325,30 @@ Actual secrets and private configuration should remain outside GitHub.
 
 ```text
 POC-88-MempoolCongestionVisualizer-AswinSankar-Phase3/
-│
-├── backend/
-│   ├── API implementation
-│   ├── data processing
-│   └── congestion logic
-│
-├── frontend/
-│   ├── Next.js application
-│   ├── dashboard components
-│   ├── charts
-│   └── UI components
-│
-├── docs/
-│   ├── project documentation
-│   └── phase documentation
-│
-├── screenshots/
-│   └── project evidence
-│
-├── docker-compose.yml
-├── .env.example
-├── package-lock.json
-├── README.md
-└── README.MD
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ backend/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ API implementation
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ data processing
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ congestion logic
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ frontend/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Next.js application
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ dashboard components
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ charts
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ UI components
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ docs/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ project documentation
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ phase documentation
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ screenshots/
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ project evidence
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ docker-compose.yml
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ .env.example
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ package-lock.json
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ README.md
+Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ README.MD
 ```
 
 ---
@@ -573,19 +573,19 @@ Important repository operations included:
 
 ```text
 Repository initialization
-        ↓
+        Ã¢â€ â€œ
 Remote configuration
-        ↓
+        Ã¢â€ â€œ
 Fetch existing repository state
-        ↓
+        Ã¢â€ â€œ
 Merge repository initialization
-        ↓
+        Ã¢â€ â€œ
 Resolve repository history
-        ↓
+        Ã¢â€ â€œ
 Push Phase 3 implementation
-        ↓
+        Ã¢â€ â€œ
 Verify origin/main
-        ↓
+        Ã¢â€ â€œ
 Clean working tree
 ```
 
@@ -600,29 +600,29 @@ Working tree: Clean
 
 ---
 
-# 19. Phase 2 → Phase 3 Evolution
+# 19. Phase 2 Ã¢â€ â€™ Phase 3 Evolution
 
 ```text
 PHASE 2
-│
-├── POC implementation
-├── FastAPI backend
-├── Next.js frontend
-├── Mempool.space integration
-├── Dashboard
-└── Cloud deployment/testing
-        │
-        ▼
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ POC implementation
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ FastAPI backend
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Next.js frontend
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Mempool.space integration
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Dashboard
+Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ Cloud deployment/testing
+        Ã¢â€â€š
+        Ã¢â€“Â¼
 PHASE 3
-│
-├── Data foundation
-├── Structured architecture
-├── Dockerization
-├── Environment configuration
-├── Documentation
-├── Evidence organization
-├── Repository migration
-└── Production-readiness preparation
+Ã¢â€â€š
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Data foundation
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Structured architecture
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Dockerization
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Environment configuration
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Documentation
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Evidence organization
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Repository migration
+Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ Production-readiness preparation
 ```
 
 ---
@@ -722,7 +722,7 @@ Designed & Transformed By
 Aswin Sankar P.S.
 
 Real Rails Internship
-POC-88 — Mempool Congestion Visualizer
+POC-88 Ã¢â‚¬â€ Mempool Congestion Visualizer
 Phase 3
 ```
 

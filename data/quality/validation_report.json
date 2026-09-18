@@ -1,5 +1,19 @@
 {
   "status": "PASS",
   "errors": [],
-  "total_data_size_mb": 0.057
+  "expected": {
+    "data_version": "1.0.1",
+    "canonical_record_count": 48,
+    "canonical_column_count": 20,
+    "observed_at_null_count": 0,
+    "is_sampled": false
+  },
+  "actual": {
+    "canonical_record_count": 48,
+    "canonical_column_count": 20,
+    "canonical_observed_at_populated": 48,
+    "source_observed_at_populated": 48,
+    "published_record_count": 48
+  },
+  "total_data_size_mb": 0.059
 }

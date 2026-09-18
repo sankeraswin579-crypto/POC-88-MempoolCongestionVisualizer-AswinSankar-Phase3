@@ -1,43 +1,118 @@
-﻿from pathlib import Path
+﻿
+from pathlib import Path
 import json
 import csv
 from datetime import datetime, timezone
 
+
 ROOT = Path(__file__).resolve().parents[2]
+
 SOURCE_DIR = ROOT / "backend" / "data"
 OUTPUT = ROOT / "data" / "source-sample" / "source_sample.csv"
+SNAPSHOT_METADATA = SOURCE_DIR / "snapshot_metadata.json"
 
 MEMPOOL_FILE = SOURCE_DIR / "sample_mempool.json"
 FEES_FILE = SOURCE_DIR / "sample_fees.json"
 BLOCKS_FILE = SOURCE_DIR / "sample_blocks.json"
 
+
 def read_json(path: Path):
     with path.open("r", encoding="utf-8-sig") as f:
         return json.load(f)
 
+
 def iso_from_unix(value):
     if value in (None, ""):
         return None
+
     return datetime.fromtimestamp(
-        int(value), tz=timezone.utc
+        int(value),
+        tz=timezone.utc
     ).isoformat().replace("+00:00", "Z")
 
-captured_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+def load_snapshot_time():
+    """
+    Load the persisted capture timestamp.
+
+    The pipeline must never generate a new capture time during
+    extraction because the committed dataset represents a fixed
+    point-in-time snapshot.
+    """
+
+    if not SNAPSHOT_METADATA.exists():
+        raise FileNotFoundError(
+            f"Missing snapshot metadata: {SNAPSHOT_METADATA}"
+        )
+
+    metadata = read_json(SNAPSHOT_METADATA)
+
+    captured_at = metadata.get("captured_at")
+
+    if not captured_at:
+        raise ValueError(
+            "snapshot_metadata.json does not contain captured_at"
+        )
+
+    # Validate the persisted timestamp.
+    try:
+        datetime.fromisoformat(
+            captured_at.replace("Z", "+00:00")
+        )
+    except ValueError as exc:
+        raise ValueError(
+            f"Invalid captured_at timestamp: {captured_at}"
+        ) from exc
+
+    return captured_at
+
+
+# ------------------------------------------------------------
+# Load persisted snapshot timestamp
+# ------------------------------------------------------------
+
+captured_at = load_snapshot_time()
+
+print(f"Using persisted snapshot time: {captured_at}")
+
+
+# ------------------------------------------------------------
+# Load source snapshots
+# ------------------------------------------------------------
 
 mempool = read_json(MEMPOOL_FILE)
 fees = read_json(FEES_FILE)
 blocks = read_json(BLOCKS_FILE)
 
+
 rows = []
 
+
+# ------------------------------------------------------------
 # Mempool snapshot metrics
+# ------------------------------------------------------------
+
 mempool_metrics = [
-    ("transaction_count", mempool.get("count"), "transactions"),
-    ("virtual_size", mempool.get("vsize"), "vbytes"),
-    ("total_fee", mempool.get("total_fee"), "sats"),
+    (
+        "transaction_count",
+        mempool.get("count"),
+        "transactions",
+    ),
+    (
+        "virtual_size",
+        mempool.get("vsize"),
+        "vbytes",
+    ),
+    (
+        "total_fee",
+        mempool.get("total_fee"),
+        "sats",
+    ),
 ]
 
+
 for metric_name, metric_value, metric_unit in mempool_metrics:
+
     rows.append({
         "source_group": "mempool",
         "observed_at": captured_at,
@@ -55,16 +130,42 @@ for metric_name, metric_value, metric_unit in mempool_metrics:
         "is_synthetic": False,
     })
 
+
+# ------------------------------------------------------------
 # Fee snapshot metrics
+# ------------------------------------------------------------
+
 fee_metrics = [
-    ("fastest_fee", fees.get("fastestFee"), "sat_vbyte"),
-    ("half_hour_fee", fees.get("halfHourFee"), "sat_vbyte"),
-    ("hour_fee", fees.get("hourFee"), "sat_vbyte"),
-    ("economy_fee", fees.get("economyFee"), "sat_vbyte"),
-    ("minimum_fee", fees.get("minimumFee"), "sat_vbyte"),
+    (
+        "fastest_fee",
+        fees.get("fastestFee"),
+        "sat_vbyte",
+    ),
+    (
+        "half_hour_fee",
+        fees.get("halfHourFee"),
+        "sat_vbyte",
+    ),
+    (
+        "hour_fee",
+        fees.get("hourFee"),
+        "sat_vbyte",
+    ),
+    (
+        "economy_fee",
+        fees.get("economyFee"),
+        "sat_vbyte",
+    ),
+    (
+        "minimum_fee",
+        fees.get("minimumFee"),
+        "sat_vbyte",
+    ),
 ]
 
+
 for metric_name, metric_value, metric_unit in fee_metrics:
+
     rows.append({
         "source_group": "fees",
         "observed_at": captured_at,
@@ -82,19 +183,41 @@ for metric_name, metric_value, metric_unit in fee_metrics:
         "is_synthetic": False,
     })
 
+
+# ------------------------------------------------------------
 # Recent blocks
+# ------------------------------------------------------------
+
 for block in blocks:
+
     block_id = block.get("id")
     timestamp = block.get("timestamp")
 
     block_metrics = [
-        ("tx_count", block.get("tx_count"), "transactions"),
-        ("size", block.get("size"), "bytes"),
-        ("weight", block.get("weight"), "weight_units"),
-        ("difficulty", block.get("difficulty"), "difficulty"),
+        (
+            "tx_count",
+            block.get("tx_count"),
+            "transactions",
+        ),
+        (
+            "size",
+            block.get("size"),
+            "bytes",
+        ),
+        (
+            "weight",
+            block.get("weight"),
+            "weight_units",
+        ),
+        (
+            "difficulty",
+            block.get("difficulty"),
+            "difficulty",
+        ),
     ]
 
     for metric_name, metric_value, metric_unit in block_metrics:
+
         rows.append({
             "source_group": "blocks",
             "observed_at": iso_from_unix(timestamp),
@@ -112,7 +235,16 @@ for block in blocks:
             "is_synthetic": False,
         })
 
-OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+
+# ------------------------------------------------------------
+# Write source sample
+# ------------------------------------------------------------
+
+OUTPUT.parent.mkdir(
+    parents=True,
+    exist_ok=True,
+)
+
 
 fieldnames = [
     "source_group",
@@ -131,11 +263,23 @@ fieldnames = [
     "is_synthetic",
 ]
 
-with OUTPUT.open("w", newline="", encoding="utf-8") as f:
-    writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+with OUTPUT.open(
+    "w",
+    newline="",
+    encoding="utf-8",
+) as f:
+
+    writer = csv.DictWriter(
+        f,
+        fieldnames=fieldnames,
+    )
+
     writer.writeheader()
     writer.writerows(rows)
 
-print(f"Saved {len(rows)} source records to {OUTPUT}")
 
+print(
+    f"Saved {len(rows)} source records to {OUTPUT}"
+)
 

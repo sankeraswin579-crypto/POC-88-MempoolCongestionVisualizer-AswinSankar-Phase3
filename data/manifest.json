@@ -1,24 +1,27 @@
-﻿{
-    "project_id":  "POC-88",
-    "project_title":  "Mempool Congestion Visualizer",
-    "data_version":  "1.0.0",
-    "canonical_file":  "data/canonical/intelligence_data.csv",
-    "published_file":  "data/published/intelligence_data.json",
-    "source_type":  "public_api",
-    "source_names":  [
-                         "mempool.space"
-                     ],
-    "is_sampled":  true,
-    "sampling_method":  "controlled local source snapshot",
-    "random_seed":  42,
-    "original_record_count":  48,
-    "sample_record_count":  48,
-    "canonical_record_count":  48,
-    "canonical_column_count":  20,
-    "source_sample_size_mb":  0.0118,
-    "canonical_file_size_mb":  0.012052,
-    "published_file_size_mb":  0.026107,
-    "contains_synthetic_data":  false,
-    "contains_personal_data":  false,
-    "contains_restricted_data":  false
+{
+  "project_id": "POC-88",
+  "project_title": "Mempool Congestion Visualizer",
+  "data_version": "1.0.1",
+  "canonical_file": "data/canonical/intelligence_data.csv",
+  "published_file": "data/published/intelligence_data.json",
+  "canonical_path": "data/canonical/intelligence_data.csv",
+  "published_path": "data/published/intelligence_data.json",
+  "source_type": "public_api",
+  "source_names": [
+    "mempool.space"
+  ],
+  "is_sampled": false,
+  "sampling_method": "full_local_source_snapshot_retained",
+  "random_seed": 42,
+  "original_record_count": 48,
+  "sample_record_count": 48,
+  "canonical_record_count": 48,
+  "canonical_column_count": 20,
+  "source_sample_size_mb": 0.0118,
+  "canonical_file_size_mb": 0.012052,
+  "published_file_size_mb": 0.026107,
+  "is_synthetic": false,
+  "contains_synthetic_data": false,
+  "contains_personal_data": false,
+  "contains_restricted_data": false
 }
