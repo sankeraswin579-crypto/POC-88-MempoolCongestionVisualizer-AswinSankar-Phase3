@@ -1,0 +1,198 @@
+======================================================================
+POC-88 PHASE 3 — CANONICAL DATA PROFILE REPORT
+======================================================================
+
+DATASET
+----------------------------------------------------------------------
+File: C:\projects\POC-88-MempoolCongestionVisualizer-AswinSankar-Phase3\data\canonical\intelligence_data.csv
+Rows: 48
+Columns: 20
+
+1. COLUMN INVENTORY
+----------------------------------------------------------------------
+01. record_id
+02. record_type
+03. observed_at
+04. entity_id
+05. related_entity_id
+06. entity_name
+07. category
+08. subcategory
+09. status
+10. stage
+11. metric_name
+12. metric_value
+13. metric_unit
+14. text_value
+15. latitude
+16. longitude
+17. source_name
+18. source_record_id
+19. is_synthetic
+20. data_version
+
+2. DATA TYPES
+----------------------------------------------------------------------
+record_id: str
+record_type: str
+observed_at: str
+entity_id: str
+related_entity_id: float64
+entity_name: str
+category: str
+subcategory: str
+status: str
+stage: float64
+metric_name: str
+metric_value: float64
+metric_unit: str
+text_value: str
+latitude: float64
+longitude: float64
+source_name: str
+source_record_id: str
+is_synthetic: bool
+data_version: str
+
+3. MISSING VALUES
+----------------------------------------------------------------------
+record_id: 0
+record_type: 0
+observed_at: 0
+entity_id: 0
+related_entity_id: 48
+entity_name: 0
+category: 0
+subcategory: 0
+status: 0
+stage: 48
+metric_name: 0
+metric_value: 0
+metric_unit: 0
+text_value: 0
+latitude: 48
+longitude: 48
+source_name: 0
+source_record_id: 0
+is_synthetic: 0
+data_version: 0
+
+Total missing cells: 192
+
+4. UNIQUE VALUE COUNTS
+----------------------------------------------------------------------
+record_id: 48
+record_type: 1
+observed_at: 11
+entity_id: 12
+related_entity_id: 0
+entity_name: 12
+category: 3
+subcategory: 3
+status: 2
+stage: 0
+metric_name: 12
+metric_value: 36
+metric_unit: 7
+text_value: 3
+latitude: 0
+longitude: 0
+source_name: 1
+source_record_id: 11
+is_synthetic: 1
+data_version: 1
+
+5. NUMERIC PROFILE
+----------------------------------------------------------------------
+
+related_entity_id
+  Count : 0
+  Min   : nan
+  Max   : nan
+  Mean  : nan
+  Median: nan
+
+stage
+  Count : 0
+  Min   : nan
+  Max   : nan
+  Mean  : nan
+  Median: nan
+
+metric_value
+  Count : 48
+  Min   : 1.0
+  Max   : 127450789715843.14
+  Mean  : 26552250014134.26
+  Median: 1766599.0
+
+latitude
+  Count : 0
+  Min   : nan
+  Max   : nan
+  Mean  : nan
+  Median: nan
+
+longitude
+  Count : 0
+  Min   : nan
+  Max   : nan
+  Mean  : nan
+  Median: nan
+
+6. TIMESTAMP PROFILE
+----------------------------------------------------------------------
+Timestamp column: observed_at
+Valid timestamps: 48
+Invalid timestamps: 0
+Minimum timestamp: 2026-09-17 07:34:19+00:00
+Maximum timestamp: 2026-09-17 09:15:22+00:00
+
+7. DUPLICATE CHECK
+----------------------------------------------------------------------
+Duplicate rows: 0
+Duplicate record_id values: 0
+
+8. RECORD TYPE DISTRIBUTION
+----------------------------------------------------------------------
+measurement: 48
+
+9. CATEGORY DISTRIBUTION
+----------------------------------------------------------------------
+bitcoin_block: 40
+fees: 5
+mempool: 3
+
+10. SUBCATEGORY DISTRIBUTION
+----------------------------------------------------------------------
+recent_block: 40
+recommended_rates: 5
+current_snapshot: 3
+
+11. METRIC INVENTORY
+----------------------------------------------------------------------
+tx_count: 10
+size: 10
+weight: 10
+difficulty: 10
+transaction_count: 1
+virtual_size: 1
+total_fee: 1
+fastest_fee: 1
+half_hour_fee: 1
+hour_fee: 1
+economy_fee: 1
+minimum_fee: 1
+
+12. SAMPLE RECORDS
+----------------------------------------------------------------------
+  record_id record_type          observed_at       entity_id  related_entity_id           entity_name category       subcategory   status  stage       metric_name  metric_value  metric_unit text_value  latitude  longitude   source_name source_record_id  is_synthetic data_version
+POC88-00001 measurement 2026-09-17T09:15:22Z MEMPOOL-CURRENT                NaN       Bitcoin Mempool  mempool  current_snapshot observed    NaN transaction_count       77708.0 transactions    mempool       NaN        NaN mempool.space          current         False        1.0.1
+POC88-00002 measurement 2026-09-17T09:15:22Z MEMPOOL-CURRENT                NaN       Bitcoin Mempool  mempool  current_snapshot observed    NaN      virtual_size    40889806.0       vbytes    mempool       NaN        NaN mempool.space          current         False        1.0.1
+POC88-00003 measurement 2026-09-17T09:15:22Z MEMPOOL-CURRENT                NaN       Bitcoin Mempool  mempool  current_snapshot observed    NaN         total_fee     9029904.0         sats    mempool       NaN        NaN mempool.space          current         False        1.0.1
+POC88-00004 measurement 2026-09-17T09:15:22Z    FEES-CURRENT                NaN Bitcoin Fee Estimates     fees recommended_rates observed    NaN       fastest_fee           3.0    sat_vbyte       fees       NaN        NaN mempool.space          current         False        1.0.1
+POC88-00005 measurement 2026-09-17T09:15:22Z    FEES-CURRENT                NaN Bitcoin Fee Estimates     fees recommended_rates observed    NaN     half_hour_fee           3.0    sat_vbyte       fees       NaN        NaN mempool.space          current         False        1.0.1
+
+======================================================================
+END OF REPORT
+======================================================================
