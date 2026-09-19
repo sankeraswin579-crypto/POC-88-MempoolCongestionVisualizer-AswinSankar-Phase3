@@ -1,0 +1,124 @@
+{
+  "dataset_path": "data\\canonical\\intelligence_data.csv",
+  "rows": 48,
+  "columns": 20,
+  "column_names": [
+    "record_id",
+    "record_type",
+    "observed_at",
+    "entity_id",
+    "related_entity_id",
+    "entity_name",
+    "category",
+    "subcategory",
+    "status",
+    "stage",
+    "metric_name",
+    "metric_value",
+    "metric_unit",
+    "text_value",
+    "latitude",
+    "longitude",
+    "source_name",
+    "source_record_id",
+    "is_synthetic",
+    "data_version"
+  ],
+  "dtypes": {
+    "record_id": "str",
+    "record_type": "str",
+    "observed_at": "str",
+    "entity_id": "str",
+    "related_entity_id": "float64",
+    "entity_name": "str",
+    "category": "str",
+    "subcategory": "str",
+    "status": "str",
+    "stage": "float64",
+    "metric_name": "str",
+    "metric_value": "float64",
+    "metric_unit": "str",
+    "text_value": "str",
+    "latitude": "float64",
+    "longitude": "float64",
+    "source_name": "str",
+    "source_record_id": "str",
+    "is_synthetic": "bool",
+    "data_version": "str"
+  },
+  "missing_values": {
+    "record_id": 0,
+    "record_type": 0,
+    "observed_at": 0,
+    "entity_id": 0,
+    "related_entity_id": 48,
+    "entity_name": 0,
+    "category": 0,
+    "subcategory": 0,
+    "status": 0,
+    "stage": 48,
+    "metric_name": 0,
+    "metric_value": 0,
+    "metric_unit": 0,
+    "text_value": 0,
+    "latitude": 48,
+    "longitude": 48,
+    "source_name": 0,
+    "source_record_id": 0,
+    "is_synthetic": 0,
+    "data_version": 0
+  },
+  "duplicate_full_rows": 0,
+  "duplicate_record_ids": 0,
+  "unique_record_ids": 48,
+  "unique_observed_at": 11,
+  "record_type_counts": {
+    "measurement": 48
+  },
+  "category_counts": {
+    "bitcoin_block": 40,
+    "fees": 5,
+    "mempool": 3
+  },
+  "subcategory_counts": {
+    "recent_block": 40,
+    "recommended_rates": 5,
+    "current_snapshot": 3
+  },
+  "status_counts": {
+    "confirmed": 40,
+    "observed": 8
+  },
+  "metric_name_counts": {
+    "tx_count": 10,
+    "size": 10,
+    "weight": 10,
+    "difficulty": 10,
+    "transaction_count": 1,
+    "virtual_size": 1,
+    "total_fee": 1,
+    "fastest_fee": 1,
+    "half_hour_fee": 1,
+    "hour_fee": 1,
+    "economy_fee": 1,
+    "minimum_fee": 1
+  },
+  "metric_unit_counts": {
+    "transactions": 11,
+    "bytes": 10,
+    "weight_units": 10,
+    "difficulty": 10,
+    "sat_vbyte": 5,
+    "vbytes": 1,
+    "sats": 1
+  },
+  "source_counts": {
+    "mempool.space": 48
+  },
+  "synthetic_counts": {
+    "false": 48
+  },
+  "version_counts": {
+    "1.0.1": 48
+  }
+}

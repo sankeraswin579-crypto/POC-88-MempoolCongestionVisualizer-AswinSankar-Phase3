@@ -1,0 +1,67 @@
+{
+  "rows": 48,
+  "columns": 20,
+  "completeness": {
+    "missing_by_column": {
+      "record_id": 0,
+      "record_type": 0,
+      "observed_at": 0,
+      "entity_id": 0,
+      "related_entity_id": 48,
+      "entity_name": 0,
+      "category": 0,
+      "subcategory": 0,
+      "status": 0,
+      "stage": 48,
+      "metric_name": 0,
+      "metric_value": 0,
+      "metric_unit": 0,
+      "text_value": 0,
+      "latitude": 48,
+      "longitude": 48,
+      "source_name": 0,
+      "source_record_id": 0,
+      "is_synthetic": 0,
+      "data_version": 0
+    }
+  },
+  "uniqueness": {
+    "duplicate_record_ids": 0,
+    "duplicate_full_rows": 0
+  },
+  "validity": {
+    "metric_value_missing": 0,
+    "metric_value_min": 1.0,
+    "metric_value_max": 127450789715843.14
+  },
+  "consistency": {
+    "record_types": {
+      "measurement": 48
+    },
+    "data_versions": {
+      "1.0.1": 48
+    },
+    "source_names": {
+      "mempool.space": 48
+    }
+  },
+  "provenance": {
+    "source_name_complete": true,
+    "source_record_id_complete": true,
+    "synthetic_records": 0
+  },
+  "checks": {
+    "record_id_complete": true,
+    "record_ids_unique": true,
+    "duplicate_full_rows_zero": true,
+    "observed_at_complete": true,
+    "entity_id_complete": true,
+    "metric_name_complete": true,
+    "metric_value_complete": true,
+    "metric_unit_complete": true,
+    "source_name_complete": true,
+    "source_record_id_complete": true,
+    "data_version_complete": true
+  },
+  "overall_status": "PASS"
+}

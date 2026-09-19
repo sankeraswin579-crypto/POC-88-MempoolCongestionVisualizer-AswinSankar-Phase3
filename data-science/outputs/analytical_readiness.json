@@ -1,0 +1,29 @@
+{
+  "dataset_archetype": "time-stamped operational measurement dataset",
+  "primary_analytical_question": "How do observed Bitcoin mempool, transaction, block, and fee measurements vary across the captured observation timestamps?",
+  "tracks": {
+    "descriptive": "READY",
+    "diagnostic": "READY",
+    "temporal": "READY_WITH_LIMITATIONS",
+    "predictive": "NOT_ESTABLISHED_FROM_CURRENT_SNAPSHOT_ALONE"
+  },
+  "data_quality_gate": "PASS",
+  "representativeness": {
+    "unique_timestamps": 11,
+    "categories": {
+      "bitcoin_block": 40,
+      "fees": 5,
+      "mempool": 3
+    },
+    "sources": {
+      "mempool.space": 48
+    }
+  },
+  "limitations": [
+    "11 unique observation timestamps are present.",
+    "All records originate from mempool.space.",
+    "Latitude and longitude are not populated.",
+    "The package is a captured operational sample rather than a complete representation of all possible Bitcoin network conditions."
+  ],
+  "readiness_decision": "DATA READY FOR ANALYTICAL TRACK DEVELOPMENT"
+}

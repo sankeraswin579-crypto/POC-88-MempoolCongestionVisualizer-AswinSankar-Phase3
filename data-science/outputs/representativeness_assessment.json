@@ -1,0 +1,42 @@
+{
+  "rows": 48,
+  "unique_observation_timestamps": 11,
+  "earliest_observed_at": "2026-09-17 07:34:19+00:00",
+  "latest_observed_at": "2026-09-17 09:15:22+00:00",
+  "category_distribution": {
+    "bitcoin_block": 40,
+    "fees": 5,
+    "mempool": 3
+  },
+  "subcategory_distribution": {
+    "recent_block": 40,
+    "recommended_rates": 5,
+    "current_snapshot": 3
+  },
+  "status_distribution": {
+    "confirmed": 40,
+    "observed": 8
+  },
+  "entity_count": 12,
+  "metric_count": 12,
+  "source_distribution": {
+    "mempool.space": 48
+  },
+  "synthetic_records": 0,
+  "geographic_coverage": {
+    "latitude_non_null": 0,
+    "longitude_non_null": 0,
+    "latitude_missing": 48,
+    "longitude_missing": 48
+  },
+  "assessment": {
+    "archetype": "time-stamped operational measurement dataset",
+    "sample_scope": "captured Bitcoin mempool, fee, and recent-block measurements",
+    "limitations": [
+      "11 unique observation timestamps are present.",
+      "All records originate from mempool.space.",
+      "Latitude and longitude are not populated.",
+      "The package is a captured operational sample rather than a complete representation of all possible Bitcoin network conditions."
+    ]
+  }
+}
