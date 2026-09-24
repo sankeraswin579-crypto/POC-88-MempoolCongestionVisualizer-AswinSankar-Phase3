@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
@@ -11,7 +11,7 @@ RAW_PATH = (
     PROJECT_ROOT
     / "data-science"
     / "outputs"
-    / "temporal_track_raw.json"
+    / "comparative_track_raw.json"
 )
 
 VALIDATION_PATH = (
@@ -46,25 +46,29 @@ DATA_VERSION = "1.0.1"
 
 
 def utc_now() -> str:
-    return (
-        datetime.now(timezone.utc)
-        .strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(
+        timezone.utc
+    ).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
     )
 
 
 def main() -> None:
+
     print(
-        "Exporting standardized intelligence results..."
+        "Exporting Track A — Comparative "
+        "intelligence results..."
     )
 
     if not RAW_PATH.exists():
         raise FileNotFoundError(
-            f"Raw analytical output not found: {RAW_PATH}"
+            f"Comparative output not found: {RAW_PATH}"
         )
 
     if not VALIDATION_PATH.exists():
         raise FileNotFoundError(
-            f"Validation output not found: {VALIDATION_PATH}"
+            f"Validation output not found: "
+            f"{VALIDATION_PATH}"
         )
 
     raw = json.loads(
@@ -86,70 +90,73 @@ def main() -> None:
         "UNKNOWN",
     )
 
-    # ---------------------------------------------------------------
-    # Intelligence results
-    # ---------------------------------------------------------------
-
     intelligence_results = []
 
     result_counter = 1
 
-    for metric in raw.get(
-        "metric_summary",
+    for finding in raw.get(
+        "findings",
         []
     ):
+
         result = {
             "result_id": (
-                f"POC88-TEMP-{result_counter:04d}"
+                f"POC88-COMP-{result_counter:04d}"
             ),
             "result_type": (
-                "temporal_metric_summary"
+                "comparative_metric_baseline"
             ),
-            "metric_name": metric[
+            "primary_track": (
+                "Track A — Comparative"
+            ),
+            "metric_name": finding[
                 "metric_name"
             ],
-            "result_value": metric[
-                "mean"
+            "result_value": finding[
+                "baseline_value"
             ],
-            "result_unit": metric[
+            "result_unit": finding[
                 "metric_unit"
             ],
-            "category": metric[
+            "category": finding[
                 "category"
             ],
-            "finding": (
-                f"{metric['metric_name']} "
-                f"was observed across "
-                f"{metric['unique_timestamps']} "
-                f"timestamps with a range of "
-                f"{metric['range']} "
-                f"{metric['metric_unit']}."
-            ),
+            "finding_type": finding[
+                "finding_type"
+            ],
+            "finding": finding[
+                "finding"
+            ],
             "evidence": {
-                "observations": metric[
-                    "observations"
+                "baseline_value": finding[
+                    "baseline_value"
                 ],
-                "minimum": metric[
+                "minimum": finding[
                     "minimum"
                 ],
-                "maximum": metric[
+                "maximum": finding[
                     "maximum"
                 ],
-                "first_observed_at": metric[
-                    "first_observed_at"
-                ],
-                "last_observed_at": metric[
-                    "last_observed_at"
+                "range": finding[
+                    "range"
                 ],
             },
-            "method_version": "temporal-track-v1.0",
+            "method_version": (
+                "comparative-track-v1.0"
+            ),
+            "baseline_method": (
+                "arithmetic_mean"
+            ),
             "data_version": DATA_VERSION,
             "generated_at": generated_at,
             "quality_status": quality_status,
             "limitation": (
-                "Observed temporal variation in a "
-                "limited captured sample; not a "
-                "forecast or prediction."
+                "Comparative findings are limited "
+                "to compatible metric groups in "
+                "the captured operational sample. "
+                "They do not establish temporal "
+                "trends, forecasting, or predictive "
+                "capability."
             ),
         }
 
@@ -162,20 +169,22 @@ def main() -> None:
     RESULTS_PATH.write_text(
         json.dumps(
             {
-                "results": intelligence_results
+                "primary_track": (
+                    "Track A — Comparative"
+                ),
+                "results": intelligence_results,
             },
             indent=2,
         ),
         encoding="utf-8",
     )
 
-    # ---------------------------------------------------------------
-    # Intelligence summary
-    # ---------------------------------------------------------------
-
     summary = {
         "summary_type": (
-            "temporal_analytical_track_summary"
+            "comparative_analytical_track_summary"
+        ),
+        "primary_track": (
+            "Track A — Comparative"
         ),
         "data_version": DATA_VERSION,
         "analysis_type": raw.get(
@@ -184,26 +193,33 @@ def main() -> None:
         "record_count": raw.get(
             "record_count"
         ),
-        "unique_observed_timestamps": raw.get(
-            "unique_observed_timestamps",
+        "comparative_group_count": len(
             raw.get(
-                "timestamp_coverage",
-                {}
-            ).get(
-                "unique_timestamps"
-            ),
+                "comparative_groups",
+                []
+            )
         ),
-        "metric_group_count": len(
+        "finding_count": len(
             raw.get(
-                "metric_summary",
+                "findings",
                 []
             )
         ),
         "validation_status": quality_status,
         "interpretation": (
-            "The analytical track describes "
-            "observed variation across captured "
-            "timestamps. It does not establish "
+            "The analytical track establishes "
+            "deterministic comparative baselines "
+            "for compatible metric groups and "
+            "compares observed measurements against "
+            "those baselines."
+        ),
+        "temporal_context": (
+            "Timestamps are retained as supporting "
+            "evidence only. No unsupported temporal "
+            "trend is claimed."
+        ),
+        "predictive_capability": (
+            "Rejected; the analysis does not establish "
             "forecasting or predictive capability."
         ),
         "generated_at": generated_at,
@@ -217,41 +233,54 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # ---------------------------------------------------------------
-    # Weak case / limitation review
-    # ---------------------------------------------------------------
-
     weak_case_review = {
         "review_type": (
-            "temporal_analytical_weak_case_review"
+            "comparative_analytical_weak_case_review"
+        ),
+        "primary_track": (
+            "Track A — Comparative"
         ),
         "data_version": DATA_VERSION,
         "status": quality_status,
         "reviewed_cases": [
             {
                 "case": (
-                    "Limited timestamp coverage"
+                    "Metric compatibility"
                 ),
                 "assessment": (
-                    "The dataset contains 11 "
-                    "unique observation timestamps."
+                    "Each comparison is restricted "
+                    "to the same category, metric "
+                    "name, and metric unit."
                 ),
                 "impact": (
-                    "Limits interpretation as a "
-                    "continuous historical time series."
+                    "Prevents inappropriate comparison "
+                    "of incompatible measurements."
                 ),
             },
             {
                 "case": (
-                    "Metric compatibility"
+                    "Comparative baseline"
                 ),
                 "assessment": (
-                    "Metrics are summarized by "
-                    "category, metric name, and unit."
+                    "Each compatible metric group "
+                    "uses an arithmetic-mean baseline."
                 ),
                 "impact": (
-                    "Prevents inappropriate comparison "
-                    "between incompatible measurements."
+                    "Provides a deterministic reference "
+                    "for comparative findings."
+                ),
+            },
+            {
+                "case": (
+                    "Temporal interpretation"
+                ),
+                "assessment": (
+                    "Observation timestamps remain "
+                    "supporting evidence only."
+                ),
+                "impact": (
+                    "Prevents unsupported claims of "
+                    "continuous temporal trends."
                 ),
             },
             {
@@ -259,18 +288,20 @@ def main() -> None:
                     "Predictive interpretation"
                 ),
                 "assessment": (
-                    "No forecasting model is produced."
+                    "No forecasting or predictive model "
+                    "is produced."
                 ),
                 "impact": (
-                    "Results must be interpreted as "
-                    "observed temporal variation only."
+                    "Results remain descriptive and "
+                    "comparative."
                 ),
             },
         ],
         "overall_limitation": (
             "The dataset is a captured operational "
-            "sample and does not establish "
-            "predictive capability."
+            "sample. Comparative findings are limited "
+            "to compatible observed measurements and "
+            "do not establish predictive capability."
         ),
     }
 
@@ -283,14 +314,17 @@ def main() -> None:
     )
 
     print(
-        "Intelligence results exported successfully."
+        "Track A intelligence results exported."
     )
+
     print(
         f"Results: {RESULTS_PATH}"
     )
+
     print(
         f"Summary: {SUMMARY_PATH}"
     )
+
     print(
         f"Weak-case review: {WEAK_CASE_PATH}"
     )

@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 from pathlib import Path
@@ -10,7 +10,7 @@ INPUT_PATH = (
     PROJECT_ROOT
     / "data-science"
     / "outputs"
-    / "temporal_track_raw.json"
+    / "comparative_track_raw.json"
 )
 
 OUTPUT_PATH = (
@@ -24,11 +24,14 @@ EXPECTED_VERSION = "1.0.1"
 
 
 def main() -> None:
-    print("Validating temporal analytical track...")
+
+    print(
+        "Validating Track A — Comparative analytical track..."
+    )
 
     if not INPUT_PATH.exists():
         raise FileNotFoundError(
-            f"Analytical output not found: {INPUT_PATH}"
+            f"Comparative output not found: {INPUT_PATH}"
         )
 
     data = json.loads(
@@ -38,6 +41,14 @@ def main() -> None:
     )
 
     errors = []
+
+    if data.get("primary_track") != (
+        "Track A — Comparative"
+    ):
+        errors.append(
+            "Primary analytical track is not "
+            "Track A — Comparative."
+        )
 
     if data.get("data_version") != EXPECTED_VERSION:
         errors.append(
@@ -50,72 +61,150 @@ def main() -> None:
             f"{data.get('record_count')}."
         )
 
-    coverage = data.get(
-        "timestamp_coverage",
-        {}
-    )
-
-    if coverage.get("unique_timestamps") != 11:
-        errors.append(
-            "Expected 11 unique observation timestamps."
-        )
-
-    if not data.get("timestamp_summary"):
-        errors.append(
-            "timestamp_summary is empty."
-        )
-
-    if not data.get("metric_summary"):
-        errors.append(
-            "metric_summary is empty."
-        )
-
-    for item in data.get(
-        "metric_summary",
+    groups = data.get(
+        "comparative_groups",
         []
-    ):
-        if item["observations"] <= 0:
-            errors.append(
-                f"Metric {item.get('metric_name')} "
-                "has no observations."
-            )
-
-        if item["minimum"] > item["maximum"]:
-            errors.append(
-                f"Metric {item.get('metric_name')} "
-                "has invalid min/max values."
-            )
-
-    status = (
-        "PASS"
-        if not errors
-        else "FAIL"
     )
+
+    findings = data.get(
+        "findings",
+        []
+    )
+
+    if not groups:
+        errors.append(
+            "comparative_groups is empty."
+        )
+
+    if not findings:
+        errors.append(
+            "findings is empty."
+        )
+
+    if len(groups) != len(findings):
+        errors.append(
+            "Finding count does not match "
+            "comparative group count."
+        )
+
+    baseline_valid = True
+    compatibility_valid = True
+    observations_valid = True
+
+    for group in groups:
+
+        metric_name = group.get(
+            "metric_name"
+        )
+
+        metric_unit = group.get(
+            "metric_unit"
+        )
+
+        observations = group.get(
+            "observations",
+            []
+        )
+
+        baseline = group.get(
+            "baseline_value"
+        )
+
+        minimum = group.get(
+            "minimum"
+        )
+
+        maximum = group.get(
+            "maximum"
+        )
+
+        if not observations:
+            observations_valid = False
+            errors.append(
+                f"{metric_name} has no observations."
+            )
+
+        if baseline is None:
+            baseline_valid = False
+            errors.append(
+                f"{metric_name} has no baseline."
+            )
+
+        if minimum is None or maximum is None:
+            baseline_valid = False
+            errors.append(
+                f"{metric_name} has incomplete "
+                "range information."
+            )
+
+        if (
+            minimum is not None
+            and maximum is not None
+            and minimum > maximum
+        ):
+            baseline_valid = False
+            errors.append(
+                f"{metric_name} has invalid "
+                "minimum/maximum values."
+            )
+
+        for observation in observations:
+
+            if observation.get(
+                "metric_unit"
+            ) != metric_unit:
+                compatibility_valid = False
+                errors.append(
+                    f"{metric_name} contains an "
+                    "incompatible metric unit."
+                )
+
+            if observation.get(
+                "baseline_value"
+            ) != baseline:
+                baseline_valid = False
+                errors.append(
+                    f"{metric_name} observation "
+                    "does not use the group baseline."
+                )
+
+            if observation.get(
+                "metric_value"
+            ) is None:
+                observations_valid = False
+                errors.append(
+                    f"{metric_name} contains "
+                    "a missing metric value."
+                )
 
     validation = {
         "validation_type": (
-            "temporal_analytical_track_validation"
+            "comparative_analytical_track_validation"
+        ),
+        "primary_track": (
+            "Track A — Comparative"
         ),
         "data_version": EXPECTED_VERSION,
         "input": (
             "data-science/outputs/"
-            "temporal_track_raw.json"
+            "comparative_track_raw.json"
         ),
-        "status": status,
+        "status": (
+            "PASS"
+            if not errors
+            else "FAIL"
+        ),
         "record_count": data.get(
             "record_count"
         ),
-        "unique_timestamps": coverage.get(
-            "unique_timestamps"
-        ),
-        "metric_groups": len(
-            data.get(
-                "metric_summary",
-                []
-            )
-        ),
+        "comparative_group_count": len(groups),
+        "finding_count": len(findings),
         "errors": errors,
         "checks": {
+            "primary_track_is_comparative": (
+                data.get("primary_track")
+                == "Track A — Comparative"
+            ),
             "canonical_version": (
                 data.get("data_version")
                 == EXPECTED_VERSION
@@ -124,25 +213,31 @@ def main() -> None:
                 data.get("record_count")
                 == 48
             ),
-            "expected_timestamp_count": (
-                coverage.get(
-                    "unique_timestamps"
-                )
-                == 11
+            "comparative_groups_present": bool(
+                groups
             ),
-            "timestamp_summary_present": bool(
-                data.get("timestamp_summary")
+            "findings_present": bool(
+                findings
             ),
-            "metric_summary_present": bool(
-                data.get("metric_summary")
+            "finding_group_alignment": (
+                len(groups)
+                == len(findings)
             ),
-            "metric_ranges_valid": not any(
-                item["minimum"]
-                > item["maximum"]
-                for item in data.get(
-                    "metric_summary",
-                    []
-                )
+            "baseline_values_valid": (
+                baseline_valid
+            ),
+            "metric_unit_compatibility": (
+                compatibility_valid
+            ),
+            "observations_valid": (
+                observations_valid
+            ),
+            "predictive_capability_rejected": (
+                data.get(
+                    "predictive_capability",
+                    {}
+                ).get("status")
+                == "REJECTED"
             ),
         },
     }
@@ -156,15 +251,25 @@ def main() -> None:
     )
 
     print(
-        f"Validation status: {status}"
+        f"Validation status: "
+        f"{validation['status']}"
     )
+
+    print(
+        f"Comparative groups: {len(groups)}"
+    )
+
+    print(
+        f"Findings: {len(findings)}"
+    )
+
     print(
         f"Output: {OUTPUT_PATH}"
     )
 
     if errors:
         raise SystemExit(
-            "Analytical validation failed."
+            "Comparative analytical validation failed."
         )
 
 

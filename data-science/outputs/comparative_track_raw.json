@@ -1,0 +1,765 @@
+{
+  "analysis_type": "comparative_compatible_metric_baseline",
+  "primary_track": "Track A — Comparative",
+  "data_version": "1.0.1",
+  "dataset_path": "data/canonical/intelligence_data.csv",
+  "record_count": 48,
+  "category_counts": {
+    "bitcoin_block": 40,
+    "fees": 5,
+    "mempool": 3
+  },
+  "compatible_metric_group_count": 12,
+  "comparison_rule": "Comparisons are performed only within the same category, metric_name, and metric_unit.",
+  "baseline_rule": "Baseline is the arithmetic mean of the available compatible observations for each metric group.",
+  "comparative_groups": [
+    {
+      "category": "bitcoin_block",
+      "metric_name": "difficulty",
+      "metric_unit": "difficulty",
+      "observation_count": 10,
+      "unique_timestamps": 10,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 127450789715843.16,
+      "minimum": 127450789715843.14,
+      "maximum": 127450789715843.14,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00048",
+          "observed_at": "2026-09-17T07:34:19Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00044",
+          "observed_at": "2026-09-17T07:45:35Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00040",
+          "observed_at": "2026-09-17T07:54:39Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00036",
+          "observed_at": "2026-09-17T07:56:03Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00032",
+          "observed_at": "2026-09-17T08:02:14Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00028",
+          "observed_at": "2026-09-17T08:07:52Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00024",
+          "observed_at": "2026-09-17T08:37:30Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00020",
+          "observed_at": "2026-09-17T08:47:05Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00016",
+          "observed_at": "2026-09-17T08:54:55Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        },
+        {
+          "record_id": "POC88-00012",
+          "observed_at": "2026-09-17T08:56:25Z",
+          "metric_value": 127450789715843.14,
+          "metric_unit": "difficulty",
+          "baseline_value": 127450789715843.16,
+          "difference_from_baseline": -0.015625,
+          "percent_difference_from_baseline": -1.2259633725955397e-14
+        }
+      ]
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "size",
+      "metric_unit": "bytes",
+      "observation_count": 10,
+      "unique_timestamps": 10,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 1558003.7,
+      "minimum": 719309.0,
+      "maximum": 1860235.0,
+      "range": 1140926.0,
+      "observations": [
+        {
+          "record_id": "POC88-00046",
+          "observed_at": "2026-09-17T07:34:19Z",
+          "metric_value": 1480673.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": -77330.69999999995,
+          "percent_difference_from_baseline": -4.9634477761509785
+        },
+        {
+          "record_id": "POC88-00042",
+          "observed_at": "2026-09-17T07:45:35Z",
+          "metric_value": 1591436.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 33432.30000000005,
+          "percent_difference_from_baseline": 2.1458421440205853
+        },
+        {
+          "record_id": "POC88-00038",
+          "observed_at": "2026-09-17T07:54:39Z",
+          "metric_value": 719309.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": -838694.7,
+          "percent_difference_from_baseline": -53.83136766620002
+        },
+        {
+          "record_id": "POC88-00034",
+          "observed_at": "2026-09-17T07:56:03Z",
+          "metric_value": 1571696.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 13692.300000000047,
+          "percent_difference_from_baseline": 0.8788361670771415
+        },
+        {
+          "record_id": "POC88-00030",
+          "observed_at": "2026-09-17T08:02:14Z",
+          "metric_value": 1612228.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 54224.30000000005,
+          "percent_difference_from_baseline": 3.4803704253077226
+        },
+        {
+          "record_id": "POC88-00026",
+          "observed_at": "2026-09-17T08:07:52Z",
+          "metric_value": 1600326.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 42322.30000000005,
+          "percent_difference_from_baseline": 2.71644412654476
+        },
+        {
+          "record_id": "POC88-00022",
+          "observed_at": "2026-09-17T08:37:30Z",
+          "metric_value": 1610936.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 52932.30000000005,
+          "percent_difference_from_baseline": 3.3974437929768744
+        },
+        {
+          "record_id": "POC88-00018",
+          "observed_at": "2026-09-17T08:47:05Z",
+          "metric_value": 1774313.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 216309.30000000005,
+          "percent_difference_from_baseline": 13.883747516132347
+        },
+        {
+          "record_id": "POC88-00014",
+          "observed_at": "2026-09-17T08:54:55Z",
+          "metric_value": 1758885.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 200881.30000000005,
+          "percent_difference_from_baseline": 12.89350596535811
+        },
+        {
+          "record_id": "POC88-00010",
+          "observed_at": "2026-09-17T08:56:25Z",
+          "metric_value": 1860235.0,
+          "metric_unit": "bytes",
+          "baseline_value": 1558003.7,
+          "difference_from_baseline": 302231.30000000005,
+          "percent_difference_from_baseline": 19.39862530493349
+        }
+      ]
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "tx_count",
+      "metric_unit": "transactions",
+      "observation_count": 10,
+      "unique_timestamps": 10,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 3462.8,
+      "minimum": 975.0,
+      "maximum": 6707.0,
+      "range": 5732.0,
+      "observations": [
+        {
+          "record_id": "POC88-00045",
+          "observed_at": "2026-09-17T07:34:19Z",
+          "metric_value": 2722.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": -740.8000000000002,
+          "percent_difference_from_baseline": -21.3930922952524
+        },
+        {
+          "record_id": "POC88-00041",
+          "observed_at": "2026-09-17T07:45:35Z",
+          "metric_value": 3993.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": 530.1999999999998,
+          "percent_difference_from_baseline": 15.311308767471404
+        },
+        {
+          "record_id": "POC88-00037",
+          "observed_at": "2026-09-17T07:54:39Z",
+          "metric_value": 1535.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": -1927.8000000000002,
+          "percent_difference_from_baseline": -55.671710754302886
+        },
+        {
+          "record_id": "POC88-00033",
+          "observed_at": "2026-09-17T07:56:03Z",
+          "metric_value": 6707.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": 3244.2,
+          "percent_difference_from_baseline": 93.68718955758345
+        },
+        {
+          "record_id": "POC88-00029",
+          "observed_at": "2026-09-17T08:02:14Z",
+          "metric_value": 5798.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": 2335.2,
+          "percent_difference_from_baseline": 67.43675638211852
+        },
+        {
+          "record_id": "POC88-00025",
+          "observed_at": "2026-09-17T08:07:52Z",
+          "metric_value": 5886.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": 2423.2,
+          "percent_difference_from_baseline": 69.97805244310962
+        },
+        {
+          "record_id": "POC88-00021",
+          "observed_at": "2026-09-17T08:37:30Z",
+          "metric_value": 4446.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": 983.1999999999998,
+          "percent_difference_from_baseline": 28.393207808709708
+        },
+        {
+          "record_id": "POC88-00017",
+          "observed_at": "2026-09-17T08:47:05Z",
+          "metric_value": 1528.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": -1934.8000000000002,
+          "percent_difference_from_baseline": -55.873859304608985
+        },
+        {
+          "record_id": "POC88-00013",
+          "observed_at": "2026-09-17T08:54:55Z",
+          "metric_value": 1038.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": -2424.8,
+          "percent_difference_from_baseline": -70.02425782603675
+        },
+        {
+          "record_id": "POC88-00009",
+          "observed_at": "2026-09-17T08:56:25Z",
+          "metric_value": 975.0,
+          "metric_unit": "transactions",
+          "baseline_value": 3462.8,
+          "difference_from_baseline": -2487.8,
+          "percent_difference_from_baseline": -71.84359477879173
+        }
+      ]
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "weight",
+      "metric_unit": "weight_units",
+      "observation_count": 10,
+      "unique_timestamps": 10,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 3790792.1,
+      "minimum": 1969289.0,
+      "maximum": 3994058.0,
+      "range": 2024769.0,
+      "observations": [
+        {
+          "record_id": "POC88-00047",
+          "observed_at": "2026-09-17T07:34:19Z",
+          "metric_value": 3993314.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 202521.8999999999,
+          "percent_difference_from_baseline": 5.342469190014401
+        },
+        {
+          "record_id": "POC88-00043",
+          "observed_at": "2026-09-17T07:45:35Z",
+          "metric_value": 3992888.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 202095.8999999999,
+          "percent_difference_from_baseline": 5.3312314331350406
+        },
+        {
+          "record_id": "POC88-00039",
+          "observed_at": "2026-09-17T07:54:39Z",
+          "metric_value": 1969289.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": -1821503.1,
+          "percent_difference_from_baseline": -48.050725335214246
+        },
+        {
+          "record_id": "POC88-00035",
+          "observed_at": "2026-09-17T07:56:03Z",
+          "metric_value": 3992579.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 201786.8999999999,
+          "percent_difference_from_baseline": 5.323080102440857
+        },
+        {
+          "record_id": "POC88-00031",
+          "observed_at": "2026-09-17T08:02:14Z",
+          "metric_value": 3992584.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 201791.8999999999,
+          "percent_difference_from_baseline": 5.323212000995778
+        },
+        {
+          "record_id": "POC88-00027",
+          "observed_at": "2026-09-17T08:07:52Z",
+          "metric_value": 3992841.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 202048.8999999999,
+          "percent_difference_from_baseline": 5.329991586718774
+        },
+        {
+          "record_id": "POC88-00023",
+          "observed_at": "2026-09-17T08:37:30Z",
+          "metric_value": 3993938.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 203145.8999999999,
+          "percent_difference_from_baseline": 5.358930129668675
+        },
+        {
+          "record_id": "POC88-00019",
+          "observed_at": "2026-09-17T08:47:05Z",
+          "metric_value": 3994058.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 203265.8999999999,
+          "percent_difference_from_baseline": 5.362095694986805
+        },
+        {
+          "record_id": "POC88-00015",
+          "observed_at": "2026-09-17T08:54:55Z",
+          "metric_value": 3993618.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 202825.8999999999,
+          "percent_difference_from_baseline": 5.350488622153663
+        },
+        {
+          "record_id": "POC88-00011",
+          "observed_at": "2026-09-17T08:56:25Z",
+          "metric_value": 3992812.0,
+          "metric_unit": "weight_units",
+          "baseline_value": 3790792.1,
+          "difference_from_baseline": 202019.8999999999,
+          "percent_difference_from_baseline": 5.3292265751002255
+        }
+      ]
+    },
+    {
+      "category": "fees",
+      "metric_name": "economy_fee",
+      "metric_unit": "sat_vbyte",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00007",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 1.0,
+          "metric_unit": "sat_vbyte",
+          "baseline_value": 1.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "fees",
+      "metric_name": "fastest_fee",
+      "metric_unit": "sat_vbyte",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 3.0,
+      "minimum": 3.0,
+      "maximum": 3.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00004",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 3.0,
+          "metric_unit": "sat_vbyte",
+          "baseline_value": 3.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "fees",
+      "metric_name": "half_hour_fee",
+      "metric_unit": "sat_vbyte",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 3.0,
+      "minimum": 3.0,
+      "maximum": 3.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00005",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 3.0,
+          "metric_unit": "sat_vbyte",
+          "baseline_value": 3.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "fees",
+      "metric_name": "hour_fee",
+      "metric_unit": "sat_vbyte",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00006",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 1.0,
+          "metric_unit": "sat_vbyte",
+          "baseline_value": 1.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "fees",
+      "metric_name": "minimum_fee",
+      "metric_unit": "sat_vbyte",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00008",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 1.0,
+          "metric_unit": "sat_vbyte",
+          "baseline_value": 1.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "mempool",
+      "metric_name": "total_fee",
+      "metric_unit": "sats",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 9029904.0,
+      "minimum": 9029904.0,
+      "maximum": 9029904.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00003",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 9029904.0,
+          "metric_unit": "sats",
+          "baseline_value": 9029904.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "mempool",
+      "metric_name": "transaction_count",
+      "metric_unit": "transactions",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 77708.0,
+      "minimum": 77708.0,
+      "maximum": 77708.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00001",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 77708.0,
+          "metric_unit": "transactions",
+          "baseline_value": 77708.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    },
+    {
+      "category": "mempool",
+      "metric_name": "virtual_size",
+      "metric_unit": "vbytes",
+      "observation_count": 1,
+      "unique_timestamps": 1,
+      "baseline_method": "arithmetic_mean",
+      "baseline_value": 40889806.0,
+      "minimum": 40889806.0,
+      "maximum": 40889806.0,
+      "range": 0.0,
+      "observations": [
+        {
+          "record_id": "POC88-00002",
+          "observed_at": "2026-09-17T09:15:22Z",
+          "metric_value": 40889806.0,
+          "metric_unit": "vbytes",
+          "baseline_value": 40889806.0,
+          "difference_from_baseline": 0.0,
+          "percent_difference_from_baseline": 0.0
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "category": "bitcoin_block",
+      "metric_name": "difficulty",
+      "metric_unit": "difficulty",
+      "finding_type": "baseline_match",
+      "finding": "difficulty has a stable observed value of 127450789715843.16 difficulty across the available compatible observations.",
+      "baseline_value": 127450789715843.16,
+      "minimum": 127450789715843.14,
+      "maximum": 127450789715843.14,
+      "range": 0.0
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "size",
+      "metric_unit": "bytes",
+      "finding_type": "comparative_variation",
+      "finding": "size has a comparative baseline of 1558003.7 bytes, with observed values ranging from 719309.0 to 1860235.0 bytes.",
+      "baseline_value": 1558003.7,
+      "minimum": 719309.0,
+      "maximum": 1860235.0,
+      "range": 1140926.0
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "tx_count",
+      "metric_unit": "transactions",
+      "finding_type": "comparative_variation",
+      "finding": "tx_count has a comparative baseline of 3462.8 transactions, with observed values ranging from 975.0 to 6707.0 transactions.",
+      "baseline_value": 3462.8,
+      "minimum": 975.0,
+      "maximum": 6707.0,
+      "range": 5732.0
+    },
+    {
+      "category": "bitcoin_block",
+      "metric_name": "weight",
+      "metric_unit": "weight_units",
+      "finding_type": "comparative_variation",
+      "finding": "weight has a comparative baseline of 3790792.1 weight_units, with observed values ranging from 1969289.0 to 3994058.0 weight_units.",
+      "baseline_value": 3790792.1,
+      "minimum": 1969289.0,
+      "maximum": 3994058.0,
+      "range": 2024769.0
+    },
+    {
+      "category": "fees",
+      "metric_name": "economy_fee",
+      "metric_unit": "sat_vbyte",
+      "finding_type": "baseline_match",
+      "finding": "economy_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0
+    },
+    {
+      "category": "fees",
+      "metric_name": "fastest_fee",
+      "metric_unit": "sat_vbyte",
+      "finding_type": "baseline_match",
+      "finding": "fastest_fee has a stable observed value of 3.0 sat_vbyte across the available compatible observations.",
+      "baseline_value": 3.0,
+      "minimum": 3.0,
+      "maximum": 3.0,
+      "range": 0.0
+    },
+    {
+      "category": "fees",
+      "metric_name": "half_hour_fee",
+      "metric_unit": "sat_vbyte",
+      "finding_type": "baseline_match",
+      "finding": "half_hour_fee has a stable observed value of 3.0 sat_vbyte across the available compatible observations.",
+      "baseline_value": 3.0,
+      "minimum": 3.0,
+      "maximum": 3.0,
+      "range": 0.0
+    },
+    {
+      "category": "fees",
+      "metric_name": "hour_fee",
+      "metric_unit": "sat_vbyte",
+      "finding_type": "baseline_match",
+      "finding": "hour_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0
+    },
+    {
+      "category": "fees",
+      "metric_name": "minimum_fee",
+      "metric_unit": "sat_vbyte",
+      "finding_type": "baseline_match",
+      "finding": "minimum_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
+      "baseline_value": 1.0,
+      "minimum": 1.0,
+      "maximum": 1.0,
+      "range": 0.0
+    },
+    {
+      "category": "mempool",
+      "metric_name": "total_fee",
+      "metric_unit": "sats",
+      "finding_type": "baseline_match",
+      "finding": "total_fee has a stable observed value of 9029904.0 sats across the available compatible observations.",
+      "baseline_value": 9029904.0,
+      "minimum": 9029904.0,
+      "maximum": 9029904.0,
+      "range": 0.0
+    },
+    {
+      "category": "mempool",
+      "metric_name": "transaction_count",
+      "metric_unit": "transactions",
+      "finding_type": "baseline_match",
+      "finding": "transaction_count has a stable observed value of 77708.0 transactions across the available compatible observations.",
+      "baseline_value": 77708.0,
+      "minimum": 77708.0,
+      "maximum": 77708.0,
+      "range": 0.0
+    },
+    {
+      "category": "mempool",
+      "metric_name": "virtual_size",
+      "metric_unit": "vbytes",
+      "finding_type": "baseline_match",
+      "finding": "virtual_size has a stable observed value of 40889806.0 vbytes across the available compatible observations.",
+      "baseline_value": 40889806.0,
+      "minimum": 40889806.0,
+      "maximum": 40889806.0,
+      "range": 0.0
+    }
+  ],
+  "interpretation_scope": "Deterministic comparative analysis of compatible observed measurements against their metric-specific baseline.",
+  "temporal_context": "Observation timestamps are retained as supporting evidence only. The analysis does not interpret the captured observations as a continuous time series or establish temporal trend behavior.",
+  "limitations": [
+    "The dataset is a captured operational sample rather than a continuous historical time series.",
+    "Comparisons are restricted to matching category, metric name, and metric unit.",
+    "Fee, mempool, and block measurements are retained as separate metric groups.",
+    "The arithmetic mean is used as the deterministic comparative baseline.",
+    "The analysis does not establish forecasting or predictive capability.",
+    "Temporal observations are supporting context and are not interpreted as validated temporal trends."
+  ],
+  "predictive_capability": {
+    "status": "REJECTED",
+    "reason": "The captured dataset and analytical scope do not support forecasting or predictive modeling."
+  }
+}
