@@ -1,0 +1,18 @@
+{
+  "validation_type": "temporal_analytical_track_validation",
+  "data_version": "1.0.1",
+  "input": "data-science/outputs/temporal_track_raw.json",
+  "status": "PASS",
+  "record_count": 48,
+  "unique_timestamps": 11,
+  "metric_groups": 12,
+  "errors": [],
+  "checks": {
+    "canonical_version": true,
+    "expected_record_count": true,
+    "expected_timestamp_count": true,
+    "timestamp_summary_present": true,
+    "metric_summary_present": true,
+    "metric_ranges_valid": true
+  }
+}

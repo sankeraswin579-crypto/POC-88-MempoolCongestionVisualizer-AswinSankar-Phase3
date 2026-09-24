@@ -1,0 +1,11 @@
+{
+  "summary_type": "temporal_analytical_track_summary",
+  "data_version": "1.0.1",
+  "analysis_type": "temporal_observed_measurement_comparison",
+  "record_count": 48,
+  "unique_observed_timestamps": 11,
+  "metric_group_count": 12,
+  "validation_status": "PASS",
+  "interpretation": "The analytical track describes observed variation across captured timestamps. It does not establish forecasting or predictive capability.",
+  "generated_at": "2026-09-24T13:45:15Z"
+}
