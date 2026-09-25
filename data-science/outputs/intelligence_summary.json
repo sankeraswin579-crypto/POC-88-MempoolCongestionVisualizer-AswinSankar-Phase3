@@ -1,11 +1,14 @@
 {
-  "summary_type": "temporal_analytical_track_summary",
+  "summary_type": "comparative_analytical_track_summary",
+  "primary_track": "Track A \u2014 Comparative",
   "data_version": "1.0.1",
-  "analysis_type": "temporal_observed_measurement_comparison",
+  "analysis_type": "comparative_compatible_metric_baseline",
   "record_count": 48,
-  "unique_observed_timestamps": 11,
-  "metric_group_count": 12,
+  "comparative_group_count": 12,
+  "finding_count": 12,
   "validation_status": "PASS",
-  "interpretation": "The analytical track describes observed variation across captured timestamps. It does not establish forecasting or predictive capability.",
-  "generated_at": "2026-09-24T13:45:15Z"
+  "interpretation": "The analytical track establishes deterministic comparative baselines for compatible metric groups and compares observed measurements against those baselines.",
+  "temporal_context": "Timestamps are retained as supporting evidence only. No unsupported temporal trend is claimed.",
+  "predictive_capability": "Rejected; the analysis does not establish forecasting or predictive capability.",
+  "generated_at": "2026-09-25T12:26:12Z"
 }

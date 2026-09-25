@@ -1,18 +1,23 @@
 {
-  "validation_type": "temporal_analytical_track_validation",
+  "validation_type": "comparative_analytical_track_validation",
+  "primary_track": "Track A \u2014 Comparative",
   "data_version": "1.0.1",
-  "input": "data-science/outputs/temporal_track_raw.json",
+  "input": "data-science/outputs/comparative_track_raw.json",
   "status": "PASS",
   "record_count": 48,
-  "unique_timestamps": 11,
-  "metric_groups": 12,
+  "comparative_group_count": 12,
+  "finding_count": 12,
   "errors": [],
   "checks": {
+    "primary_track_is_comparative": true,
     "canonical_version": true,
     "expected_record_count": true,
-    "expected_timestamp_count": true,
-    "timestamp_summary_present": true,
-    "metric_summary_present": true,
-    "metric_ranges_valid": true
+    "comparative_groups_present": true,
+    "findings_present": true,
+    "finding_group_alignment": true,
+    "baseline_values_valid": true,
+    "metric_unit_compatibility": true,
+    "observations_valid": true,
+    "predictive_capability_rejected": true
   }
 }

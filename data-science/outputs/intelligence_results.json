@@ -1,256 +1,281 @@
 {
+  "primary_track": "Track A \u2014 Comparative",
   "results": [
     {
-      "result_id": "POC88-TEMP-0001",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0001",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "difficulty",
       "result_value": 127450789715843.16,
       "result_unit": "difficulty",
       "category": "bitcoin_block",
-      "finding": "difficulty was observed across 10 timestamps with a range of 0.0 difficulty.",
+      "finding_type": "baseline_match",
+      "finding": "difficulty has a stable observed value of 127450789715843.16 difficulty across the available compatible observations.",
       "evidence": {
-        "observations": 10,
+        "baseline_value": 127450789715843.16,
         "minimum": 127450789715843.14,
         "maximum": 127450789715843.14,
-        "first_observed_at": "2026-09-17T07:34:19Z",
-        "last_observed_at": "2026-09-17T08:56:25Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0002",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0002",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "size",
       "result_value": 1558003.7,
       "result_unit": "bytes",
       "category": "bitcoin_block",
-      "finding": "size was observed across 10 timestamps with a range of 1140926.0 bytes.",
+      "finding_type": "comparative_variation",
+      "finding": "size has a comparative baseline of 1558003.7 bytes, with observed values ranging from 719309.0 to 1860235.0 bytes.",
       "evidence": {
-        "observations": 10,
+        "baseline_value": 1558003.7,
         "minimum": 719309.0,
         "maximum": 1860235.0,
-        "first_observed_at": "2026-09-17T07:34:19Z",
-        "last_observed_at": "2026-09-17T08:56:25Z"
+        "range": 1140926.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0003",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0003",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "tx_count",
       "result_value": 3462.8,
       "result_unit": "transactions",
       "category": "bitcoin_block",
-      "finding": "tx_count was observed across 10 timestamps with a range of 5732.0 transactions.",
+      "finding_type": "comparative_variation",
+      "finding": "tx_count has a comparative baseline of 3462.8 transactions, with observed values ranging from 975.0 to 6707.0 transactions.",
       "evidence": {
-        "observations": 10,
+        "baseline_value": 3462.8,
         "minimum": 975.0,
         "maximum": 6707.0,
-        "first_observed_at": "2026-09-17T07:34:19Z",
-        "last_observed_at": "2026-09-17T08:56:25Z"
+        "range": 5732.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0004",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0004",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "weight",
       "result_value": 3790792.1,
       "result_unit": "weight_units",
       "category": "bitcoin_block",
-      "finding": "weight was observed across 10 timestamps with a range of 2024769.0 weight_units.",
+      "finding_type": "comparative_variation",
+      "finding": "weight has a comparative baseline of 3790792.1 weight_units, with observed values ranging from 1969289.0 to 3994058.0 weight_units.",
       "evidence": {
-        "observations": 10,
+        "baseline_value": 3790792.1,
         "minimum": 1969289.0,
         "maximum": 3994058.0,
-        "first_observed_at": "2026-09-17T07:34:19Z",
-        "last_observed_at": "2026-09-17T08:56:25Z"
+        "range": 2024769.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0005",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0005",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "economy_fee",
       "result_value": 1.0,
       "result_unit": "sat_vbyte",
       "category": "fees",
-      "finding": "economy_fee was observed across 1 timestamps with a range of 0.0 sat_vbyte.",
+      "finding_type": "baseline_match",
+      "finding": "economy_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 1.0,
         "minimum": 1.0,
         "maximum": 1.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0006",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0006",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "fastest_fee",
       "result_value": 3.0,
       "result_unit": "sat_vbyte",
       "category": "fees",
-      "finding": "fastest_fee was observed across 1 timestamps with a range of 0.0 sat_vbyte.",
+      "finding_type": "baseline_match",
+      "finding": "fastest_fee has a stable observed value of 3.0 sat_vbyte across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 3.0,
         "minimum": 3.0,
         "maximum": 3.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0007",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0007",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "half_hour_fee",
       "result_value": 3.0,
       "result_unit": "sat_vbyte",
       "category": "fees",
-      "finding": "half_hour_fee was observed across 1 timestamps with a range of 0.0 sat_vbyte.",
+      "finding_type": "baseline_match",
+      "finding": "half_hour_fee has a stable observed value of 3.0 sat_vbyte across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 3.0,
         "minimum": 3.0,
         "maximum": 3.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0008",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0008",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "hour_fee",
       "result_value": 1.0,
       "result_unit": "sat_vbyte",
       "category": "fees",
-      "finding": "hour_fee was observed across 1 timestamps with a range of 0.0 sat_vbyte.",
+      "finding_type": "baseline_match",
+      "finding": "hour_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 1.0,
         "minimum": 1.0,
         "maximum": 1.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0009",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0009",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "minimum_fee",
       "result_value": 1.0,
       "result_unit": "sat_vbyte",
       "category": "fees",
-      "finding": "minimum_fee was observed across 1 timestamps with a range of 0.0 sat_vbyte.",
+      "finding_type": "baseline_match",
+      "finding": "minimum_fee has a stable observed value of 1.0 sat_vbyte across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 1.0,
         "minimum": 1.0,
         "maximum": 1.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0010",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0010",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "total_fee",
       "result_value": 9029904.0,
       "result_unit": "sats",
       "category": "mempool",
-      "finding": "total_fee was observed across 1 timestamps with a range of 0.0 sats.",
+      "finding_type": "baseline_match",
+      "finding": "total_fee has a stable observed value of 9029904.0 sats across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 9029904.0,
         "minimum": 9029904.0,
         "maximum": 9029904.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0011",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0011",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "transaction_count",
       "result_value": 77708.0,
       "result_unit": "transactions",
       "category": "mempool",
-      "finding": "transaction_count was observed across 1 timestamps with a range of 0.0 transactions.",
+      "finding_type": "baseline_match",
+      "finding": "transaction_count has a stable observed value of 77708.0 transactions across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 77708.0,
         "minimum": 77708.0,
         "maximum": 77708.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     },
     {
-      "result_id": "POC88-TEMP-0012",
-      "result_type": "temporal_metric_summary",
+      "result_id": "POC88-COMP-0012",
+      "result_type": "comparative_metric_baseline",
+      "primary_track": "Track A \u2014 Comparative",
       "metric_name": "virtual_size",
       "result_value": 40889806.0,
       "result_unit": "vbytes",
       "category": "mempool",
-      "finding": "virtual_size was observed across 1 timestamps with a range of 0.0 vbytes.",
+      "finding_type": "baseline_match",
+      "finding": "virtual_size has a stable observed value of 40889806.0 vbytes across the available compatible observations.",
       "evidence": {
-        "observations": 1,
+        "baseline_value": 40889806.0,
         "minimum": 40889806.0,
         "maximum": 40889806.0,
-        "first_observed_at": "2026-09-17T09:15:22Z",
-        "last_observed_at": "2026-09-17T09:15:22Z"
+        "range": 0.0
       },
-      "method_version": "temporal-track-v1.0",
+      "method_version": "comparative-track-v1.0",
+      "baseline_method": "arithmetic_mean",
       "data_version": "1.0.1",
-      "generated_at": "2026-09-24T13:45:15Z",
+      "generated_at": "2026-09-25T12:26:12Z",
       "quality_status": "PASS",
-      "limitation": "Observed temporal variation in a limited captured sample; not a forecast or prediction."
+      "limitation": "Comparative findings are limited to compatible metric groups in the captured operational sample. They do not establish temporal trends, forecasting, or predictive capability."
     }
   ]
 }
