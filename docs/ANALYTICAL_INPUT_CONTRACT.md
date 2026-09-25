@@ -1,14 +1,14 @@
-ï»¿# Analytical Input Contract
+# Analytical Input Contract
 
 ## 1. Purpose
 
-This document defines the input contract for the Phase 3 Temporal Analytical Track.
+This document defines the input contract for the Phase 3 **Track A — Comparative Analytical Track**.
 
 ## 2. Authoritative Input
 
 The analytical track consumes:
 
-`data/canonical/intelligence_data.csv`
+data/canonical/intelligence_data.csv
 
 The analytical track must not substitute a second cleaned dataset.
 
@@ -16,76 +16,83 @@ The analytical track must not substitute a second cleaned dataset.
 
 Expected:
 
-`1.0.1`
+1.0.1
 
 ## 4. Dataset Expectations
 
 Expected record count:
 
-`48`
+48
 
 Expected column count:
 
-`20`
+20
 
 Expected unique observation timestamps:
 
-`11`
+11
 
 Expected source:
 
-`mempool.space`
+mempool.space
 
-## 5. Required Temporal Field
+## 5. Supporting Observation Field
 
-Primary temporal field:
+Supporting observation field:
 
-`observed_at`
+observed_at
 
-The field provides the observation timestamp used for temporal ordering.
+The field preserves the observation timestamp associated with each canonical record. Timestamps are retained as supporting evidence and must not be interpreted as establishing a continuous time series.
 
 ## 6. Canonical Fields
 
 The canonical dataset contains:
 
-- `record_id`
-- `record_type`
-- `observed_at`
-- `entity_id`
-- `related_entity_id`
-- `entity_name`
-- `category`
-- `subcategory`
-- `status`
-- `stage`
-- `metric_name`
-- `metric_value`
-- `metric_unit`
-- `text_value`
-- `latitude`
-- `longitude`
-- `source_name`
-- `source_record_id`
-- `is_synthetic`
-- `data_version`
+- ecord_id
+- ecord_type
+- observed_at
+- entity_id
+- elated_entity_id
+- entity_name
+- category
+- subcategory
+- status
+- stage
+- metric_name
+- metric_value
+- metric_unit
+- 	ext_value
+- latitude
+- longitude
+- source_name
+- source_record_id
+- is_synthetic
+- data_version
 
 ## 7. Metric Compatibility
 
 Metric values must be interpreted together with:
 
-- `category`
-- `metric_name`
-- `metric_unit`
+- category
+- metric_name
+- metric_unit
 
-Incompatible measurement units must not be combined into one numerical series.
+Compatible observations may be grouped only when these dimensions match.
 
-## 8. Temporal Semantics
+Incompatible measurement units must not be combined into one numerical comparison group.
 
-`observed_at` is used for temporal ordering.
+## 8. Comparative Semantics
 
-The timestamps represent observations in the available operational sample.
+Track A uses compatible metric groups to establish deterministic comparative baselines.
 
-Event timestamps must not automatically be treated as repeated measurements without evidence supporting that interpretation.
+For each compatible group:
+
+- observations are grouped by category, metric_name, and metric_unit
+- the arithmetic mean is used as the comparative baseline
+- individual observations are compared against that baseline
+- groups with multiple observations may support comparative variation or baseline-match findings
+- groups with a single observation are reported as insufficient_comparative_evidence
+- timestamps provide supporting evidence only and do not establish temporal trends
 
 ## 9. Input Quality
 
@@ -111,10 +118,13 @@ The analytical track must not introduce:
 
 ## 11. Interpretation Boundary
 
-The input supports descriptive temporal analysis with limitations.
+The input supports deterministic comparative analysis of compatible metric groups.
 
-The current snapshot does not establish sufficient historical coverage for predictive analysis.
+A single observation does not provide sufficient comparative evidence for a stability interpretation.
+
+The current snapshot does not establish continuous temporal coverage or predictive capability.
 
 ## 12. Reproducibility
 
 The analytical implementation consumes the canonical input and generates outputs through repository scripts.
+

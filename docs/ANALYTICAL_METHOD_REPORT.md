@@ -1,10 +1,10 @@
-﻿# Analytical Method Report
+# Analytical Method Report
 
 ## 1. Analytical Track
 
 Track:
 
-**Temporal Analytical Track**
+**Track A - Comparative Analytical Track**
 
 Primary analytical question:
 
@@ -59,7 +59,7 @@ Data version:
 
 Method version:
 
-`temporal-track-v1.0`
+`comparative-track-v1.0`
 
 ## 6. Interpretation Boundary
 
@@ -80,7 +80,7 @@ Analytical runner:
 
 Track implementation:
 
-`data-science/scripts/track-specific/temporal_track.py`
+`data-science/scripts/track-specific/comparative_track.py`
 
 Validation:
 
@@ -89,3 +89,4 @@ Validation:
 Export:
 
 `data-science/scripts/export_intelligence_results.py`
+

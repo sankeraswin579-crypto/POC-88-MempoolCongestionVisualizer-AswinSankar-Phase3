@@ -1,4 +1,4 @@
-﻿# Intelligence Output Contract
+# Intelligence Output Contract
 
 ## 1. Purpose
 
@@ -102,7 +102,7 @@ Data version:
 
 Method version:
 
-`temporal-track-v1.0`
+`comparative-track-v1.0`
 
 ## 9. Reproducibility
 
@@ -117,3 +117,4 @@ Then:
 Then:
 
 `python .\data-science\scripts\export_intelligence_results.py`
+

@@ -1,8 +1,8 @@
-﻿# Weak Case and Limitation Review
+# Weak Case and Limitation Review
 
 ## 1. Review Scope
 
-This review evaluates known weak cases and interpretation limitations for the Temporal Analytical Track.
+This review evaluates known weak cases and interpretation limitations for the Track A - Comparative Analytical Track.
 
 Data version:
 
@@ -63,3 +63,4 @@ Review status:
 Overall limitation:
 
 The dataset is a captured operational sample and does not establish predictive capability.
+

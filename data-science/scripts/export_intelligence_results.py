@@ -128,6 +128,9 @@ def main() -> None:
                 "finding"
             ],
             "evidence": {
+                "observation_count": finding[
+                    "observation_count"
+                ],
                 "baseline_value": finding[
                     "baseline_value"
                 ],
@@ -332,3 +335,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

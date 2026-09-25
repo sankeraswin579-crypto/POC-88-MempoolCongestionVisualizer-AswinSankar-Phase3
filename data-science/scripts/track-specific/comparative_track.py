@@ -14,6 +14,8 @@ Method:
       category + metric_name + metric_unit group.
     - Compare each observation against that baseline.
     - Keep incompatible metric names and units separate.
+    - Treat single-observation groups as insufficient for
+      comparative stability interpretation.
     - Do not treat timestamps as a continuous time series.
     - Do not perform forecasting or predictive modeling.
 
@@ -222,20 +224,33 @@ def build_findings(
 
     for group in comparative_groups:
 
+        observation_count = group["observation_count"]
         baseline = group["baseline_value"]
         minimum = group["minimum"]
         maximum = group["maximum"]
 
-        if maximum == minimum:
+        if observation_count == 1:
+            finding_type = "insufficient_comparative_evidence"
+
+            finding = (
+                f"{group['metric_name']} has a single "
+                f"observation; comparative evidence is "
+                f"insufficient for a stability interpretation."
+            )
+
+        elif minimum == maximum:
             finding_type = "baseline_match"
+
             finding = (
                 f"{group['metric_name']} has a stable "
                 f"observed value of {baseline} "
                 f"{group['metric_unit']} across the "
                 f"available compatible observations."
             )
+
         else:
             finding_type = "comparative_variation"
+
             finding = (
                 f"{group['metric_name']} has a comparative "
                 f"baseline of {baseline} "
@@ -251,6 +266,7 @@ def build_findings(
                 "metric_unit": group["metric_unit"],
                 "finding_type": finding_type,
                 "finding": finding,
+                "observation_count": observation_count,
                 "baseline_value": baseline,
                 "minimum": minimum,
                 "maximum": maximum,
@@ -281,6 +297,18 @@ def build_analysis(df: pd.DataFrame) -> dict:
         comparative_groups
     )
 
+    insufficient_comparative_groups = sum(
+        1
+        for group in comparative_groups
+        if group["observation_count"] == 1
+    )
+
+    supported_comparative_groups = sum(
+        1
+        for group in comparative_groups
+        if group["observation_count"] > 1
+    )
+
     return {
         "analysis_type": (
             "comparative_compatible_metric_baseline"
@@ -297,6 +325,12 @@ def build_analysis(df: pd.DataFrame) -> dict:
         "compatible_metric_group_count": (
             compatible_group_count
         ),
+        "supported_comparative_group_count": (
+            supported_comparative_groups
+        ),
+        "insufficient_comparative_group_count": (
+            insufficient_comparative_groups
+        ),
         "comparison_rule": (
             "Comparisons are performed only within "
             "the same category, metric_name, and "
@@ -306,6 +340,11 @@ def build_analysis(df: pd.DataFrame) -> dict:
             "Baseline is the arithmetic mean of the "
             "available compatible observations for "
             "each metric group."
+        ),
+        "single_observation_rule": (
+            "Groups containing a single observation "
+            "are retained as evidence but are not "
+            "interpreted as stable comparative findings."
         ),
         "comparative_groups": comparative_groups,
         "findings": findings,
@@ -330,6 +369,11 @@ def build_analysis(df: pd.DataFrame) -> dict:
             (
                 "Comparisons are restricted to matching "
                 "category, metric name, and metric unit."
+            ),
+            (
+                "Single-observation metric groups do not "
+                "provide sufficient comparative evidence "
+                "for a stability interpretation."
             ),
             (
                 "Fee, mempool, and block measurements "
@@ -413,6 +457,26 @@ def main() -> None:
         "completed successfully."
     )
     print(f"Output: {OUTPUT_PATH}")
+
+    print(
+        "Comparative groups:",
+        results["compatible_metric_group_count"],
+    )
+
+    print(
+        "Supported comparative groups:",
+        results["supported_comparative_group_count"],
+    )
+
+    print(
+        "Insufficient comparative groups:",
+        results["insufficient_comparative_group_count"],
+    )
+
+    print(
+        "Findings:",
+        len(results["findings"]),
+    )
 
 
 if __name__ == "__main__":

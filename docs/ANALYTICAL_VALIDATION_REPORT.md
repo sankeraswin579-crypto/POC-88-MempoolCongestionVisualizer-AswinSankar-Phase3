@@ -1,68 +1,99 @@
-﻿# Analytical Validation Report
+# Analytical Validation Report
 
-## 1. Validation Scope
+## 1. Purpose
 
-This report documents validation of the Temporal Analytical Track against the Phase 3 canonical dataset.
+This report documents validation of the **Track A - Comparative Analytical Track** against the Phase 3 canonical dataset.
+
+## 2. Authoritative Input
 
 Input:
 
-`data-science/outputs/temporal_track_raw.json`
+data/canonical/intelligence_data.csv
 
 Data version:
 
-`1.0.1`
+1.0.1
 
-## 2. Validation Result
+Expected dataset:
 
-Overall status:
+- 48 records
+- 20 columns
+- 11 unique observation timestamps
 
-**PASS**
+## 3. Analytical Output
 
-## 3. Validation Metrics
+Primary analytical output:
 
-- Record count: 48
-- Unique timestamps: 11
-- Metric groups: 12
-- Validation errors: 0
+data-science/outputs/comparative_track_raw.json
+
+The output contains compatible metric groups and deterministic comparative findings.
 
 ## 4. Validation Checks
 
-The following checks passed:
+The validation process checks:
 
 - canonical data version
 - expected record count
 - expected timestamp count
-- timestamp summary presence
-- metric summary presence
+- comparative group presence
+- metric compatibility
+- observation count
 - metric range validity
+- comparative finding validity
 
-## 5. Output Consistency
+Expected result:
+
+PASS
+
+## 5. Comparative Evidence
 
 The analytical output contains:
 
-- timestamp-level summary information
-- metric-level summaries
-- minimum values
-- maximum values
-- mean values
-- observation counts
-- category information
-- unit information
+- 12 compatible metric groups
+- 12 analytical findings
+- 4 groups with multiple observations supporting comparative evidence
+- 8 single-observation groups identified as insufficient_comparative_evidence
 
-## 6. Interpretation
+Multi-observation groups may support comparative variation or baseline-match findings.
 
-The validation confirms analytical output quality for the captured dataset.
+Single-observation groups are not interpreted as stable because comparative evidence is insufficient.
 
-It does not establish predictive capability.
+## 6. Validation Boundary
 
-The analysis remains descriptive of observed temporal variation within the available 11 timestamps.
+The validation confirms deterministic comparative analysis within the captured operational sample.
 
-## 7. Machine-Readable Evidence
+The validation does not establish:
 
-Validation artifact:
+- forecasting capability
+- predictive capability
+- causal relationships
+- continuous historical time-series behavior
+- unsupported temporal trends
 
-`data-science/outputs/validation_metrics.json`
+Observation timestamps are retained as supporting evidence only.
+
+## 7. Reproducibility
+
+Analytical runner:
+
+data-science/scripts/run_analytical_track.py
+
+Track implementation:
+
+data-science/scripts/track-specific/comparative_track.py
+
+Validation:
+
+data-science/scripts/validate_analytical_track.py
+
+Export:
+
+data-science/scripts/export_intelligence_results.py
+
+## 8. Result
 
 Validation status:
 
-`PASS`
+PASS
+
+The Track A - Comparative analytical implementation is aligned with the Phase 3 canonical dataset, comparative methodology, evidence limitations, and exported intelligence results.
