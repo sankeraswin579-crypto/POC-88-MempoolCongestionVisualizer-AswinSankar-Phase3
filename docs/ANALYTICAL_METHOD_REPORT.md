@@ -1,4 +1,4 @@
-# Analytical Method Report
+﻿# Analytical Method Report
 
 ## 1. Analytical Track
 
@@ -63,7 +63,7 @@ Method version:
 
 ## 6. Interpretation Boundary
 
-The analysis describes observed temporal variation in the captured sample.
+The analysis describes validated comparative findings across compatible metric groups in the captured operational sample.
 
 It does not establish:
 
@@ -89,4 +89,5 @@ Validation:
 Export:
 
 `data-science/scripts/export_intelligence_results.py`
+
 

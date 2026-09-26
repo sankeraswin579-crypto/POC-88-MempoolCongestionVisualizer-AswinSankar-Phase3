@@ -1,4 +1,4 @@
-# Intelligence Output Contract
+﻿# Intelligence Output Contract
 
 ## 1. Purpose
 
@@ -28,11 +28,17 @@ Core result fields:
 - `quality_status`
 - `limitation`
 
+Comparative summary fields:
+
+- `comparative_group_count`
+- `finding_count`
+- `comparative_interpretation`
+
 ## 4. Field Semantics
 
 `result_id` identifies the analytical result.
 
-`result_type` identifies the result type.
+`result_type` identifies the analytical result type.
 
 `metric_name` identifies the measured metric.
 
@@ -42,7 +48,7 @@ Core result fields:
 
 `category` identifies the canonical data category.
 
-`finding` provides the analytical interpretation.
+`finding` provides the comparative analytical interpretation.
 
 `evidence` records supporting analytical information.
 
@@ -56,6 +62,12 @@ Core result fields:
 
 `limitation` records important interpretation boundaries.
 
+`comparative_group_count` records the number of compatible comparative metric groups evaluated.
+
+`finding_count` records the number of validated comparative findings produced.
+
+`comparative_interpretation` records the interpretation derived from the validated comparative findings.
+
 ## 5. Summary Output
 
 Summary file:
@@ -68,31 +80,42 @@ The summary contains:
 - data version
 - record count
 - unique observed timestamp count
-- metric group count
+- comparative group count
+- finding count
 - validation status
+- comparative interpretation
 - interpretation boundary
 - generation timestamp
 
-## 6. Current Quality Status
+## 6. Current Analytical Track
 
-Current analytical validation:
+The approved analytical track for Phase 3 Post #3 is:
 
-`PASS`
+`Track A — Comparative`
 
-Validation evidence:
+The implementation compares compatible metric groups within the captured operational sample.
 
-`data-science/outputs/validation_metrics.json`
+Current validated output:
+
+- validation status: `PASS`
+- comparative groups: `12`
+- findings: `12`
 
 ## 7. Interpretation Boundary
 
-The intelligence output represents observed temporal variation across captured timestamps.
+The intelligence output represents validated comparative findings across compatible metric groups in the captured operational sample.
 
-It must not be interpreted as:
+Captured observation timestamps provide dataset context and coverage information only. The approved implementation is Track A — Comparative.
 
+The output must not be interpreted as:
+
+- trend interpretation beyond the captured comparative sample
 - forecasting
 - prediction
 - causal inference
 - continuous historical time-series reconstruction
+
+Comparative findings are limited to compatible metric groups in the captured operational sample.
 
 ## 8. Versioning
 
@@ -117,4 +140,5 @@ Then:
 Then:
 
 `python .\data-science\scripts\export_intelligence_results.py`
+
 

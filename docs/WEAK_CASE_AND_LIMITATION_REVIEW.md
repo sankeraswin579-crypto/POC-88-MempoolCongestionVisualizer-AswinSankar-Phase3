@@ -1,4 +1,4 @@
-# Weak Case and Limitation Review
+﻿# Weak Case and Limitation Review
 
 ## 1. Review Scope
 
@@ -42,7 +42,7 @@ No forecasting model is produced.
 
 Impact:
 
-Results must be interpreted as observed temporal variation only.
+Results must be interpreted as validated comparative findings across compatible metric groups in the captured operational sample only.
 
 ## 5. Dataset Limitation
 
@@ -63,4 +63,5 @@ Review status:
 Overall limitation:
 
 The dataset is a captured operational sample and does not establish predictive capability.
+
 
