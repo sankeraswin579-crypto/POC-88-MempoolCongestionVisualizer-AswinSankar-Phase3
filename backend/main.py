@@ -4,19 +4,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.mempool import router as mempool_router
 from routes.blocks import router as blocks_router
 from routes.analytics import router as analytics_router
+from routes.fees import router as fees_router
+from routes.assistant import assistant_router
 
 
 app = FastAPI(
-
     title="POC-88 Mempool Congestion Visualizer",
-
     description=(
         "Bitcoin mempool congestion analysis, "
         "fee intelligence, transaction activity "
         "and block analytics."
     ),
-
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
@@ -37,17 +36,11 @@ app.add_middleware(
 # ROUTES
 # ==================================================
 
-app.include_router(
-    mempool_router
-)
-
-app.include_router(
-    blocks_router
-)
-
-app.include_router(
-    analytics_router
-)
+app.include_router(mempool_router)
+app.include_router(blocks_router)
+app.include_router(analytics_router)
+app.include_router(fees_router)
+app.include_router(assistant_router)
 
 
 # ==================================================
@@ -56,50 +49,26 @@ app.include_router(
 
 @app.get("/")
 def root():
-
     return {
-
-        "project":
-            "POC-88 Mempool Congestion Visualizer",
-
-        "status":
-            "running",
-
-        "version":
-            "1.0.0",
-
-        "docs":
-            "/docs",
-
+        "project": "POC-88 Mempool Congestion Visualizer",
+        "status": "running",
+        "version": "1.0.0",
+        "docs": "/docs",
         "endpoints": {
-
-            "mempool":
-                "/api/mempool/",
-
-            "congestion":
-                "/api/mempool/congestion",
-
-            "recent_transactions":
-                "/api/mempool/recent",
-
-            "projected_blocks":
-                "/api/mempool/blocks",
-
-            "blocks":
-                "/api/blocks/",
-
-            "block_tip":
-                "/api/blocks/tip",
-
-            "dashboard":
-                "/api/analytics/dashboard",
-
-            "intelligence":
-                "/api/analytics/intelligence",
-
-            "summary":
-                "/api/analytics/summary"
-        }
+            "mempool": "/api/mempool/",
+            "congestion": "/api/mempool/congestion",
+            "recent_transactions": "/api/mempool/recent",
+            "projected_blocks": "/api/mempool/blocks",
+            "blocks": "/api/blocks/",
+            "block_tip": "/api/blocks/tip",
+            "block_by_height": "/api/blocks/{height}",
+            "fee_buckets": "/api/fees/buckets",
+            "assistant": "/api/assistant/query",
+            "dashboard": "/api/analytics/dashboard",
+            "intelligence": "/api/analytics/intelligence",
+            "phase3_intelligence": "/api/analytics/phase3-intelligence",
+            "summary": "/api/analytics/summary",
+        },
     }
 
 
@@ -109,12 +78,7 @@ def root():
 
 @app.get("/health")
 def health():
-
     return {
-
-        "status":
-            "healthy",
-
-        "service":
-            "mempool-congestion-backend"
+        "status": "healthy",
+        "service": "mempool-congestion-backend",
     }
