@@ -11,6 +11,38 @@ type IntelligenceData = {
   recommendation?: string;
 };
 
+type ComparativeEvidence = {
+  observation_count: number;
+  baseline_value: number;
+  minimum: number;
+  maximum: number;
+  range: number;
+};
+
+type ComparativeResult = {
+  result_id: string;
+  result_type: string;
+  primary_track: string;
+  metric_name: string;
+  result_value: number;
+  result_unit: string;
+  category: string;
+  finding_type: string;
+  finding: string;
+  evidence: ComparativeEvidence;
+  method_version: string;
+  baseline_method: string;
+  data_version: string;
+  generated_at: string;
+  quality_status: string;
+  limitation: string;
+};
+
+type Phase3IntelligenceData = {
+  primary_track: string;
+  results: ComparativeResult[];
+};
+
 type Props = {
   open?: boolean;
   onClose?: () => void;
@@ -20,6 +52,7 @@ type Props = {
   congestionTrend?: string;
   congestionChange?: number;
   previousCongestionScore?: number | null;
+  phase3Intelligence?: Phase3IntelligenceData | null;
 };
 
 const questions = [
@@ -42,6 +75,7 @@ export default function IntelligencePanel({
   congestionTrend = "STABLE",
   congestionChange = 0,
   previousCongestionScore = null,
+  phase3Intelligence = null,
 }: Props) {
   const [selectedQuestion, setSelectedQuestion] =
     useState<string | null>(null);
@@ -185,6 +219,28 @@ export default function IntelligencePanel({
     return "Watch the next few refresh cycles for changes in congestion, transaction volume, and fee recommendations.";
   };
 
+  const formatResultValue = (
+    result: ComparativeResult
+  ) => {
+    return result.result_value.toLocaleString(
+      undefined,
+      {
+        maximumFractionDigits: 4,
+      }
+    );
+  };
+
+  const formatEvidenceValue = (
+    value: number
+  ) => {
+    return value.toLocaleString(
+      undefined,
+      {
+        maximumFractionDigits: 4,
+      }
+    );
+  };
+
   return (
     <AnimatePresence>
       {open && (
@@ -213,7 +269,7 @@ export default function IntelligencePanel({
           />
 
           {/* =====================================================
-              CINEMATIC INTELLIGENCE RAIL
+              INTELLIGENCE RAIL
           ====================================================== */}
 
           <motion.aside
@@ -236,6 +292,7 @@ export default function IntelligencePanel({
             }}
             className="fixed right-0 top-0 z-[90] flex h-screen w-full flex-col border-l border-cyan-400/20 bg-[#030a11]/95 shadow-[-30px_0_80px_rgba(0,0,0,0.55)] backdrop-blur-2xl sm:w-[460px] lg:w-[520px]"
           >
+
             {/* =================================================
                 TOP BAR
             ================================================== */}
@@ -306,204 +363,409 @@ export default function IntelligencePanel({
               </div>
 
               {/* =================================================
-                  CONGESTION
+                  LIVE DASHBOARD CONTEXT
               ================================================== */}
 
-              <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
+              <div className="mt-4">
 
-                <div className="flex items-center justify-between">
+                <p className="mb-3 text-[9px] uppercase tracking-[3px] text-slate-600">
+                  Live Dashboard Context
+                </p>
 
-                  <div>
+                {/* Congestion */}
 
-                    <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
-                      Congestion Level
+                <div className="rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
+
+                  <div className="flex items-center justify-between">
+
+                    <div>
+
+                      <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
+                        Congestion Level
+                      </p>
+
+                      <p className="mt-2 text-3xl font-black uppercase text-cyan-300">
+                        {level}
+                      </p>
+
+                    </div>
+
+                    <div className="text-right">
+
+                      <p className="text-3xl font-black text-white">
+                        {score.toFixed(1)}
+                      </p>
+
+                      <p className="text-[10px] uppercase tracking-[2px] text-slate-600">
+                        / 100
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                  <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-900">
+
+                    <motion.div
+                      initial={{
+                        width: 0,
+                      }}
+                      animate={{
+                        width: `${safeScore}%`,
+                      }}
+                      transition={{
+                        duration: 0.7,
+                      }}
+                      className="h-full rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.35)]"
+                    />
+
+                  </div>
+
+                  <div className="mt-2 flex justify-between text-[8px] uppercase tracking-[2px] text-slate-700">
+                    <span>Low</span>
+                    <span>Moderate</span>
+                    <span>High</span>
+                    <span>Critical</span>
+                  </div>
+
+                </div>
+
+                {/* Live trend */}
+
+                <div className="mt-4 grid grid-cols-2 gap-3">
+
+                  <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+
+                    <p className="text-[9px] uppercase tracking-[2px] text-slate-600">
+                      Live Trend
                     </p>
 
-                    <p className="mt-2 text-3xl font-black uppercase text-cyan-300">
-                      {level}
+                    <p className="mt-2 text-sm font-black text-cyan-300">
+                      {congestionTrend}
                     </p>
 
                   </div>
 
-                  <div className="text-right">
+                  <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
 
-                    <p className="text-3xl font-black text-white">
-                      {score.toFixed(1)}
+                    <p className="text-[9px] uppercase tracking-[2px] text-slate-600">
+                      Change
                     </p>
 
-                    <p className="text-[10px] uppercase tracking-[2px] text-slate-600">
-                      / 100
+                    <p
+                      className={`mt-2 text-sm font-black ${
+                        congestionChange > 2
+                          ? "text-amber-300"
+                          : congestionChange < -2
+                          ? "text-emerald-300"
+                          : "text-cyan-300"
+                      }`}
+                    >
+                      {congestionChange > 0
+                        ? "+"
+                        : ""}
+                      {congestionChange.toFixed(
+                        1
+                      )}
+                      %
                     </p>
 
                   </div>
 
                 </div>
 
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-900">
+                {/* Why this matters */}
 
-                  <motion.div
-                    initial={{
-                      width: 0,
-                    }}
-                    animate={{
-                      width: `${safeScore}%`,
-                    }}
-                    transition={{
-                      duration: 0.7,
-                    }}
-                    className="h-full rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.35)]"
+                <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
+
+                  <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
+                    Why This Matters
+                  </p>
+
+                  <p className="mt-3 text-sm leading-6 text-slate-300">
+                    {getWhyThisMatters()}
+                  </p>
+
+                </div>
+
+                {/* Fees */}
+
+                <div className="mt-4 grid grid-cols-2 gap-3">
+
+                  <Info
+                    label="Fast Confirmation"
+                    value={
+                      fastestFee !== undefined
+                        ? `${fastestFee} sat/vB`
+                        : "-"
+                    }
+                  />
+
+                  <Info
+                    label="Economy Fee"
+                    value={
+                      economyFee !== undefined
+                        ? `${economyFee} sat/vB`
+                        : "-"
+                    }
                   />
 
                 </div>
 
-                <div className="mt-2 flex justify-between text-[8px] uppercase tracking-[2px] text-slate-700">
-                  <span>Low</span>
-                  <span>Moderate</span>
-                  <span>High</span>
-                  <span>Critical</span>
-                </div>
+                {/* Fee market */}
 
-              </div>
+                <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
 
-              {/* =================================================
-                  LIVE TREND
-              ================================================== */}
+                  <div className="flex items-center justify-between">
 
-              <div className="mt-4 grid grid-cols-2 gap-3">
+                    <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
+                      Fee Market Signal
+                    </p>
 
-                <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+                    <span className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-2 py-1 text-[8px] uppercase tracking-[2px] text-cyan-300">
+                      {getFeePressure()}
+                    </span>
 
-                  <p className="text-[9px] uppercase tracking-[2px] text-slate-600">
-                    Trend
-                  </p>
+                  </div>
 
-                  <p className="mt-2 text-sm font-black text-cyan-300">
-                    {congestionTrend}
-                  </p>
+                  <div className="mt-4 flex items-center justify-between">
 
-                </div>
+                    <span className="text-sm text-slate-400">
+                      Current Pressure
+                    </span>
 
-                <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+                    <span className="font-bold text-cyan-300">
+                      {getFeePressure()}
+                    </span>
 
-                  <p className="text-[9px] uppercase tracking-[2px] text-slate-600">
-                    Change
-                  </p>
+                  </div>
 
-                  <p
-                    className={`mt-2 text-sm font-black ${
-                      congestionChange > 2
-                        ? "text-amber-300"
-                        : congestionChange < -2
-                        ? "text-emerald-300"
-                        : "text-cyan-300"
-                    }`}
-                  >
-                    {congestionChange > 0
-                      ? "+"
-                      : ""}
-                    {congestionChange.toFixed(
-                      1
-                    )}
-                    %
+                  <p className="mt-3 text-xs leading-5 text-slate-600">
+                    Live dashboard context derived from
+                    current network conditions.
                   </p>
 
                 </div>
 
-              </div>
+                {/* Intelligence summary */}
 
-              {/* =================================================
-                  WHY THIS MATTERS
-              ================================================== */}
-
-              <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
-
-                <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
-                  Why This Matters
-                </p>
-
-                <p className="mt-3 text-sm leading-6 text-slate-300">
-                  {getWhyThisMatters()}
-                </p>
-
-              </div>
-
-              {/* =================================================
-                  FEES
-              ================================================== */}
-
-              <div className="mt-4 grid grid-cols-2 gap-3">
-
-                <Info
-                  label="Fast Confirmation"
-                  value={
-                    fastestFee !== undefined
-                      ? `${fastestFee} sat/vB`
-                      : "-"
-                  }
-                />
-
-                <Info
-                  label="Economy Fee"
-                  value={
-                    economyFee !== undefined
-                      ? `${economyFee} sat/vB`
-                      : "-"
-                  }
-                />
-
-              </div>
-
-              {/* =================================================
-                  FEE MARKET
-              ================================================== */}
-
-              <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
-
-                <div className="flex items-center justify-between">
+                <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
 
                   <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
-                    Fee Market Signal
+                    Live Intelligence Summary
                   </p>
 
-                  <span className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-2 py-1 text-[8px] uppercase tracking-[2px] text-cyan-300">
-                    {getFeePressure()}
-                  </span>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">
+                    {intelligence?.recommendation ??
+                      "Analyzing current Bitcoin network conditions..."}
+                  </p>
 
                 </div>
-
-                <div className="mt-4 flex items-center justify-between">
-
-                  <span className="text-sm text-slate-400">
-                    Current Pressure
-                  </span>
-
-                  <span className="font-bold text-cyan-300">
-                    {getFeePressure()}
-                  </span>
-
-                </div>
-
-                <p className="mt-3 text-xs leading-5 text-slate-600">
-                  Fee pressure is interpreted from current
-                  congestion and network conditions.
-                </p>
 
               </div>
 
               {/* =================================================
-                  INTELLIGENCE SUMMARY
+                  PHASE 3 APPROVED INTELLIGENCE
               ================================================== */}
 
-              <div className="mt-4 rounded-2xl border border-cyan-400/15 bg-[#07131e]/80 p-5">
+              <div className="mt-6">
 
-                <p className="text-[9px] uppercase tracking-[3px] text-slate-500">
-                  Intelligence Summary
-                </p>
+                <div className="rounded-2xl border border-violet-400/20 bg-violet-400/[0.04] p-5">
 
-                <p className="mt-3 text-sm leading-7 text-slate-300">
-                  {intelligence?.recommendation ??
-                    "Analyzing current Bitcoin network conditions..."}
-                </p>
+                  <div className="flex items-start justify-between gap-4">
+
+                    <div>
+
+                      <p className="text-[9px] uppercase tracking-[3px] text-violet-300">
+                        Phase 3 Data Intelligence
+                      </p>
+
+                      <h3 className="mt-2 text-lg font-black text-white">
+                        Approved Comparative Evidence
+                      </h3>
+
+                    </div>
+
+                    <span className="shrink-0 rounded-full border border-violet-400/20 bg-violet-400/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[2px] text-violet-300">
+                      Track A
+                    </span>
+
+                  </div>
+
+                  <div className="mt-4 rounded-xl border border-white/5 bg-black/20 p-3">
+
+                    <div className="flex items-center justify-between">
+
+                      <span className="text-[9px] uppercase tracking-[2px] text-slate-600">
+                        Analytical Track
+                      </span>
+
+                      <span className="text-xs font-bold text-violet-300">
+                        {phase3Intelligence?.primary_track ??
+                          "Not loaded"}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  {!phase3Intelligence && (
+                    <div className="mt-4 rounded-xl border border-amber-400/10 bg-amber-400/[0.03] p-4">
+
+                      <p className="text-xs leading-5 text-amber-200/80">
+                        Approved Phase 3 intelligence output
+                        is not currently available from the
+                        backend.
+                      </p>
+
+                    </div>
+                  )}
+
+                  {phase3Intelligence && (
+                    <div className="mt-4 space-y-3">
+
+                      <div className="flex items-center justify-between">
+
+                        <span className="text-[9px] uppercase tracking-[2px] text-slate-600">
+                          Approved Results
+                        </span>
+
+                        <span className="text-xs font-bold text-white">
+                          {phase3Intelligence.results.length}
+                        </span>
+
+                      </div>
+
+                      {phase3Intelligence.results.map(
+                        (result) => (
+                          <div
+                            key={result.result_id}
+                            className="rounded-xl border border-white/5 bg-black/20 p-4"
+                          >
+
+                            <div className="flex items-start justify-between gap-3">
+
+                              <div className="min-w-0">
+
+                                <p className="text-sm font-bold text-white">
+                                  {result.metric_name}
+                                </p>
+
+                                <p className="mt-1 text-[9px] uppercase tracking-[2px] text-slate-600">
+                                  {result.category}
+                                </p>
+
+                              </div>
+
+                              <span className="shrink-0 rounded-full border border-emerald-400/15 bg-emerald-400/[0.05] px-2 py-1 text-[8px] uppercase tracking-[1px] text-emerald-300">
+                                {result.quality_status}
+                              </span>
+
+                            </div>
+
+                            <div className="mt-4 grid grid-cols-2 gap-2">
+
+                              <div className="rounded-lg border border-white/5 bg-white/[0.02] p-3">
+
+                                <p className="text-[8px] uppercase tracking-[1.5px] text-slate-600">
+                                  Baseline
+                                </p>
+
+                                <p className="mt-1 text-sm font-bold text-violet-300">
+                                  {formatResultValue(
+                                    result
+                                  )}
+                                </p>
+
+                                <p className="mt-1 text-[9px] text-slate-600">
+                                  {result.result_unit}
+                                </p>
+
+                              </div>
+
+                              <div className="rounded-lg border border-white/5 bg-white/[0.02] p-3">
+
+                                <p className="text-[8px] uppercase tracking-[1.5px] text-slate-600">
+                                  Observations
+                                </p>
+
+                                <p className="mt-1 text-sm font-bold text-white">
+                                  {
+                                    result.evidence
+                                      .observation_count
+                                  }
+                                </p>
+
+                              </div>
+
+                            </div>
+
+                            <p className="mt-3 text-xs leading-5 text-slate-400">
+                              {result.finding}
+                            </p>
+
+                            <div className="mt-3 grid grid-cols-3 gap-2">
+
+                              <div>
+                                <p className="text-[8px] uppercase tracking-[1px] text-slate-700">
+                                  Minimum
+                                </p>
+
+                                <p className="mt-1 text-[10px] text-slate-500">
+                                  {formatEvidenceValue(
+                                    result.evidence.minimum
+                                  )}
+                                </p>
+                              </div>
+
+                              <div>
+                                <p className="text-[8px] uppercase tracking-[1px] text-slate-700">
+                                  Maximum
+                                </p>
+
+                                <p className="mt-1 text-[10px] text-slate-500">
+                                  {formatEvidenceValue(
+                                    result.evidence.maximum
+                                  )}
+                                </p>
+                              </div>
+
+                              <div>
+                                <p className="text-[8px] uppercase tracking-[1px] text-slate-700">
+                                  Range
+                                </p>
+
+                                <p className="mt-1 text-[10px] text-slate-500">
+                                  {formatEvidenceValue(
+                                    result.evidence.range
+                                  )}
+                                </p>
+                              </div>
+
+                            </div>
+
+                            <div className="mt-3 border-t border-white/5 pt-3">
+
+                              <p className="text-[9px] leading-4 text-slate-600">
+                                {result.limitation}
+                              </p>
+
+                              <p className="mt-2 text-[8px] uppercase tracking-[1.5px] text-slate-700">
+                                {result.method_version}
+                                {" • "}
+                                Data {result.data_version}
+                              </p>
+
+                            </div>
+
+                          </div>
+                        )
+                      )}
+
+                    </div>
+                  )}
+
+                </div>
 
               </div>
 

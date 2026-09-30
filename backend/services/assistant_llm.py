@@ -1,5 +1,7 @@
-﻿from __future__ import annotations
+﻿
+from __future__ import annotations
 
+import json
 import os
 from typing import Any
 
@@ -50,12 +52,15 @@ class LLMService:
             "",
         ).strip()
 
-        self.timeout = int(
-            os.getenv(
-                "ASSISTANT_LLM_TIMEOUT",
-                "20",
+        try:
+            self.timeout = int(
+                os.getenv(
+                    "ASSISTANT_LLM_TIMEOUT",
+                    "20",
+                )
             )
-        )
+        except ValueError:
+            self.timeout = 20
 
     @property
     def available(self) -> bool:
@@ -74,6 +79,12 @@ class LLMService:
     ) -> dict[str, Any] | None:
 
         if not self.available:
+            print(
+                "[ASSISTANT_LLM] unavailable: "
+                f"provider={self.provider!r}, "
+                f"model={self.model!r}, "
+                f"key_set={bool(self.api_key)}"
+            )
             return None
 
         evidence_package = self._build_package(
@@ -84,15 +95,40 @@ class LLMService:
 
         try:
             if self.provider == "openai":
-                return self._openai(evidence_package)
+                return self._openai(
+                    evidence_package
+                )
 
             if self.provider == "gemini":
-                return self._gemini(evidence_package)
+                return self._gemini(
+                    evidence_package
+                )
 
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                f"Unsupported provider: {self.provider}"
+            )
             return None
 
-        except Exception:
-            # LLM failure must never break the deterministic assistant.
+        except requests.RequestException as exc:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                f"{type(exc).__name__}: {exc}"
+            )
+            return None
+
+        except (ValueError, KeyError, TypeError) as exc:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                f"{type(exc).__name__}: {exc}"
+            )
+            return None
+
+        except Exception as exc:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                f"{type(exc).__name__}: {exc}"
+            )
             return None
 
     def _build_package(
@@ -188,7 +224,8 @@ class LLMService:
                             "result_value"
                         ),
                         "result_unit": item.get(
-                            "result_unit"
+                            "result_unit",
+                            item.get("unit"),
                         ),
                         "method_version": item.get(
                             "method_version"
@@ -236,6 +273,11 @@ class LLMService:
             {},
         )
 
+        item_evidence = item.get(
+            "evidence",
+            {},
+        )
+
         package["result"] = {
             "result_id": item.get(
                 "result_id"
@@ -261,6 +303,12 @@ class LLMService:
             "baseline_method": item.get(
                 "baseline_method"
             ),
+            "method_version": item.get(
+                "method_version"
+            ),
+            "data_version": item.get(
+                "data_version"
+            ),
             "generated_at": item.get(
                 "generated_at"
             ),
@@ -270,23 +318,48 @@ class LLMService:
         # Only expose values relevant to the approved intent.
         # Never pass the raw nested evidence object.
         # ---------------------------------------------------------
+
         if evidence_type == "baseline":
             package["values"] = {
                 "baseline": evidence.get(
-                    "baseline"
-                )
+                    "value",
+                    item_evidence.get(
+                        "baseline_value"
+                    ),
+                ),
+                "observation_count": evidence.get(
+                    "observation_count",
+                    item_evidence.get(
+                        "observation_count"
+                    ),
+                ),
             }
 
         elif evidence_type == "range":
             package["values"] = {
                 "minimum": evidence.get(
-                    "minimum"
+                    "minimum",
+                    item_evidence.get(
+                        "minimum"
+                    ),
                 ),
                 "maximum": evidence.get(
-                    "maximum"
+                    "maximum",
+                    item_evidence.get(
+                        "maximum"
+                    ),
                 ),
                 "range": evidence.get(
-                    "range"
+                    "range",
+                    item_evidence.get(
+                        "range"
+                    ),
+                ),
+                "observation_count": evidence.get(
+                    "observation_count",
+                    item_evidence.get(
+                        "observation_count"
+                    ),
                 ),
             }
 
@@ -303,7 +376,10 @@ class LLMService:
         elif evidence_type == "comparison":
             package["values"] = {
                 "observed_value": evidence.get(
-                    "observed_value"
+                    "value",
+                    evidence.get(
+                        "observed_value"
+                    ),
                 ),
                 "baseline": evidence.get(
                     "baseline"
@@ -316,33 +392,52 @@ class LLMService:
         elif evidence_type == "result_explanation":
             package["values"] = {
                 "observation_count": evidence.get(
-                    "observation_count"
+                    "observation_count",
+                    item_evidence.get(
+                        "observation_count"
+                    ),
                 ),
                 "baseline": evidence.get(
-                    "baseline"
+                    "baseline",
+                    item_evidence.get(
+                        "baseline_value"
+                    ),
                 ),
                 "finding": evidence.get(
-                    "finding"
+                    "finding",
+                    item.get("finding"),
                 ),
             }
 
         elif evidence_type == "method":
             package["values"] = {
                 "track": evidence.get(
-                    "track"
+                    "track",
+                    evidence.get(
+                        "primary_track"
+                    ),
                 ),
                 "baseline_method": evidence.get(
-                    "baseline_method"
+                    "baseline_method",
+                    item.get(
+                        "baseline_method"
+                    ),
                 ),
                 "method_version": evidence.get(
-                    "method_version"
+                    "method_version",
+                    item.get(
+                        "method_version"
+                    ),
                 ),
             }
 
         elif evidence_type == "limitation":
             package["values"] = {
                 "approved_track": evidence.get(
-                    "approved_track"
+                    "approved_track",
+                    evidence.get(
+                        "primary_track"
+                    ),
                 ),
                 "summary_limitation": evidence.get(
                     "summary_limitation"
@@ -359,11 +454,17 @@ class LLMService:
         evidence_package: dict[str, Any],
     ) -> dict[str, Any] | None:
 
-        url = "https://api.openai.com/v1/chat/completions"
+        url = (
+            "https://api.openai.com/v1/chat/completions"
+        )
 
         headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
+            "Authorization": (
+                f"Bearer {self.api_key}"
+            ),
+            "Content-Type": (
+                "application/json"
+            ),
         }
 
         payload = {
@@ -375,7 +476,9 @@ class LLMService:
             "messages": [
                 {
                     "role": "system",
-                    "content": GROUNDING_SYSTEM_PROMPT,
+                    "content": (
+                        GROUNDING_SYSTEM_PROMPT
+                    ),
                 },
                 {
                     "role": "user",
@@ -404,9 +507,15 @@ class LLMService:
         )
 
         if not content:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                "OpenAI returned no content."
+            )
             return None
 
-        return self._parse_json(content)
+        return self._parse_json(
+            content
+        )
 
     def _gemini(
         self,
@@ -427,7 +536,9 @@ class LLMService:
             "system_instruction": {
                 "parts": [
                     {
-                        "text": GROUNDING_SYSTEM_PROMPT,
+                        "text": (
+                            GROUNDING_SYSTEM_PROMPT
+                        ),
                     }
                 ]
             },
@@ -437,14 +548,16 @@ class LLMService:
                         {
                             "text": self._json_text(
                                 evidence_package
-                            )
+                            ),
                         }
                     ]
                 }
             ],
             "generationConfig": {
                 "temperature": 0,
-                "responseMimeType": "application/json",
+                "responseMimeType": (
+                    "application/json"
+                ),
             },
         }
 
@@ -465,26 +578,49 @@ class LLMService:
         )
 
         if not candidates:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                "Gemini returned no candidates."
+            )
             return None
 
+        candidate = candidates[0]
+
         content = (
-            candidates[0]
+            candidate
             .get("content", {})
             .get("parts", [{}])[0]
             .get("text")
         )
 
         if not content:
+            finish_reason = candidate.get(
+                "finishReason"
+            )
+
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                "Gemini returned no text. "
+                f"finishReason={finish_reason}"
+            )
             return None
 
-        return self._parse_json(content)
+        parsed = self._parse_json(
+            content
+        )
+
+        if parsed is None:
+            print(
+                "[ASSISTANT_LLM_ERROR] "
+                "Gemini returned non-JSON content."
+            )
+
+        return parsed
 
     @staticmethod
     def _json_text(
         value: dict[str, Any],
     ) -> str:
-        import json
-
         return json.dumps(
             value,
             ensure_ascii=False,
@@ -494,14 +630,19 @@ class LLMService:
     def _parse_json(
         content: str,
     ) -> dict[str, Any] | None:
-        import json
 
         try:
-            parsed = json.loads(content)
+            parsed = json.loads(
+                content
+            )
         except json.JSONDecodeError:
             return None
 
-        if not isinstance(parsed, dict):
+        if not isinstance(
+            parsed,
+            dict,
+        ):
             return None
 
         return parsed
+

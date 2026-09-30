@@ -1,97 +1,51 @@
-from fastapi import (
-    APIRouter,
-    HTTPException
-)
+﻿from fastapi import APIRouter, HTTPException
 
-from services.mempool_service import (
-    MempoolService
-)
-
-from services.congestion_service import (
-    CongestionService
-)
+from services.mempool_service import MempoolService
 
 
 router = APIRouter(
-    prefix="/api/mempool",
-    tags=["Mempool"]
+    prefix="/api/blocks",
+    tags=["Blocks"],
 )
 
-
-mempool_service = (
-    MempoolService()
-)
-
-congestion_service = (
-    CongestionService()
-)
+mempool_service = MempoolService()
 
 
 @router.get("/")
-def mempool():
-
+def recent_blocks():
     try:
-
-        return mempool_service.get_mempool()
-
+        return {
+            "data": mempool_service.get_blocks()
+        }
     except Exception as error:
-
-        raise HTTPException(
-            status_code=502,
-            detail=f"Mempool API error: {error}"
-        )
-
-
-@router.get("/congestion")
-def congestion():
-
-    try:
-
-        return (
-            congestion_service
-            .get_congestion()
-        )
-
-    except Exception as error:
-
         raise HTTPException(
             status_code=502,
             detail=str(error)
         )
 
 
-@router.get("/recent")
-def recent_transactions():
-
+@router.get("/tip")
+def block_tip():
     try:
-
         return {
-            "data":
-                mempool_service
-                .get_recent_transactions()
+            "height": mempool_service.get_block_height()
         }
-
     except Exception as error:
-
         raise HTTPException(
             status_code=502,
             detail=str(error)
         )
 
 
-@router.get("/blocks")
-def projected_blocks():
-
+@router.get("/{height}")
+def block_by_height(height: int):
     try:
-
         return {
-            "data":
-                mempool_service
-                .get_mempool_blocks()
+            "data": mempool_service.get_blocks(
+                start_height=height
+            )
         }
-
     except Exception as error:
-
         raise HTTPException(
             status_code=502,
             detail=str(error)

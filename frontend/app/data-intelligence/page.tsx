@@ -1,7 +1,8 @@
-
+ï»¿
 "use client";
 
-import Link from "next/link";`r`nimport { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
 import type {
   IntelligenceResult,
@@ -10,6 +11,7 @@ import type {
 } from "@/types/intelligence";
 
 import { loadIntelligenceData } from "@/lib/intelligence";
+import GroundedAssistant from "@/components/GroundedAssistant";
 
 type DataState = "loading" | "ready" | "error";
 
@@ -303,6 +305,9 @@ export default function DataIntelligencePage() {
           </div>
 
         </section>
+
+        {/* GROUNDED ASSISTANT */}
+<GroundedAssistant />
 
         {/* SINGLE OBSERVATION WARNING */}
 
@@ -760,7 +765,7 @@ export default function DataIntelligencePage() {
               </strong>
             </span>
 
-            <span>•</span>
+            <span>ï¿½</span>
 
             <span>
               Data version{" "}
@@ -769,7 +774,7 @@ export default function DataIntelligencePage() {
               </strong>
             </span>
 
-            <span>•</span>
+            <span>ï¿½</span>
 
             <span>
               Validation{" "}
@@ -778,7 +783,7 @@ export default function DataIntelligencePage() {
               </strong>
             </span>
 
-            <span>•</span>
+            <span>ï¿½</span>
 
             <span>
               Freshness{" "}

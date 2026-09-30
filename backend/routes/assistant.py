@@ -31,6 +31,59 @@ class AssistantQuery(BaseModel):
     )
 
 
+def _missing_parameter_response(
+    intent_name: str,
+) -> dict[str, Any]:
+    return {
+        "answer_id": "ANS-POC88-MISSING-PARAMETER",
+        "status": "missing_parameter",
+        "intent": intent_name,
+        "answer": (
+            "A metric name or approved result ID is required "
+            "to answer this question."
+        ),
+        "evidence_references": [],
+        "key_values": [],
+        "metadata": {},
+        "limitation": (
+            "The assistant only answers from approved "
+            "Track A comparative evidence."
+        ),
+        "suggested_follow_ups": [
+            "What is the baseline for transaction count?",
+            "What is the range for block size?",
+            "What is the finding for POC88-COMP-0003?",
+        ],
+        "answer_mode": "deterministic_fallback",
+    }
+
+
+def _comparison_disabled_response() -> dict[str, Any]:
+    return {
+        "answer_id": "ANS-POC88-COMPARISON-DISABLED",
+        "status": "unsupported",
+        "intent": "compare_record_to_baseline",
+        "answer": (
+            "Record-to-baseline comparison is currently disabled "
+            "because no genuine observation or record was supplied."
+        ),
+        "evidence_references": [],
+        "key_values": [],
+        "metadata": {},
+        "limitation": (
+            "The approved Track A comparative evidence does not "
+            "support comparison against an assumed or internally "
+            "selected observation."
+        ),
+        "suggested_follow_ups": [
+            "What is the baseline for transaction count?",
+            "What is the range for block size?",
+            "What is the finding for POC88-COMP-0003?",
+        ],
+        "answer_mode": "deterministic_fallback",
+    }
+
+
 @assistant_router.post("/query")
 def query_assistant(payload: AssistantQuery) -> dict[str, Any]:
 
@@ -120,6 +173,41 @@ def query_assistant(payload: AssistantQuery) -> dict[str, Any]:
         }
 
     # --------------------------------------------------
+    # Post #5: comparison hard stop
+    #
+    # Do not compare an approved result against itself or
+    # against an assumed observation. A genuine observation
+    # or record must be supplied first.
+    # --------------------------------------------------
+
+    if intent.name == "compare_record_to_baseline":
+        return _comparison_disabled_response()
+
+    # --------------------------------------------------
+    # Post #5: required metric/result validation
+    #
+    # Do not silently select the first available result when
+    # the user asks an underspecified baseline/range/result
+    # question.
+    # --------------------------------------------------
+
+    metric_required_intents = {
+        "get_group_baseline",
+        "get_group_range",
+        "get_group_extreme",
+        "explain_result",
+    }
+
+    if (
+        intent.name in metric_required_intents
+        and not intent.metric_name
+        and not intent.result_id
+    ):
+        return _missing_parameter_response(
+            intent_name=intent.name,
+        )
+
+    # --------------------------------------------------
     # Deterministic approved query
     # --------------------------------------------------
 
@@ -204,7 +292,6 @@ def query_assistant(payload: AssistantQuery) -> dict[str, Any]:
     if llm_answer:
         response["answer"] = llm_answer
         response["answer_mode"] = "llm_grounded"
-
     else:
         response["answer_mode"] = "deterministic_fallback"
 
