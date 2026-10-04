@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes.mempool import router as mempool_router
-from routes.blocks import router as blocks_router
-from routes.analytics import router as analytics_router
-from routes.fees import router as fees_router
-from routes.assistant import assistant_router
+from backend.routes.mempool import router as mempool_router
+from backend.routes.blocks import router as blocks_router
+from backend.routes.analytics import router as analytics_router
+from backend.routes.fees import router as fees_router
+from backend.routes.assistant import assistant_router
 
 
 app = FastAPI(

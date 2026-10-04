@@ -1,13 +1,14 @@
-﻿from __future__ import annotations
+﻿
+from __future__ import annotations
 
 from typing import Any
 
 
 def _metadata(item: dict[str, Any]) -> dict[str, Any]:
     return {
-        "data_version": item["data_version"],
-        "method_version": item["method_version"],
-        "quality_status": item["quality_status"],
+        "data_version": item.get("data_version"),
+        "method_version": item.get("method_version"),
+        "quality_status": item.get("quality_status"),
     }
 
 
@@ -31,7 +32,7 @@ def compose_response(
     evidence: dict[str, Any],
 ) -> dict[str, Any]:
 
-    evidence_type = evidence["type"]
+    evidence_type = evidence.get("type")
 
     # ---------------------------------------------------------
     # NOT FOUND
@@ -65,7 +66,9 @@ def compose_response(
         metadata = _package_metadata(evidence)
 
         if not metadata["data_version"]:
-            metadata["data_version"] = summary["data_version"]
+            metadata["data_version"] = summary.get(
+                "data_version"
+            )
 
         if not metadata["method_version"]:
             metadata["method_version"] = (
@@ -74,29 +77,39 @@ def compose_response(
 
         if not metadata["quality_status"]:
             metadata["quality_status"] = (
-                summary["validation_status"]
+                summary.get("validation_status")
             )
 
         return {
             "status": "answered",
             "answer": summary["interpretation"],
-            "evidence_references": evidence["evidence_references"],
+            "evidence_references": evidence.get(
+                "evidence_references",
+                [],
+            ),
             "key_values": [
                 {
                     "name": "canonical_records",
-                    "value": summary["record_count"],
+                    "value": summary.get("record_count"),
                 },
                 {
                     "name": "comparative_groups",
-                    "value": summary["comparative_group_count"],
+                    "value": summary.get(
+                        "comparative_group_count"
+                    ),
                 },
                 {
                     "name": "findings",
-                    "value": summary["finding_count"],
+                    "value": summary.get(
+                        "finding_count"
+                    ),
                 },
             ],
             "metadata": metadata,
-            "limitation": summary["temporal_context"],
+            "limitation": summary.get(
+                "temporal_context",
+                "",
+            ),
             "suggested_follow_ups": [
                 "List the available comparison groups.",
                 "Ask for the baseline of a metric.",
@@ -108,7 +121,7 @@ def compose_response(
     # COMPARISON GROUPS
     # ---------------------------------------------------------
     if evidence_type == "comparison_groups":
-        groups = evidence["groups"]
+        groups = evidence.get("groups", [])
 
         names = ", ".join(
             f'{item["metric_name"]} ({item["category"]})'
@@ -138,7 +151,10 @@ def compose_response(
                 f"The approved comparative package contains "
                 f"{len(groups)} supported metric groups: {names}."
             ),
-            "evidence_references": evidence["evidence_references"],
+            "evidence_references": evidence.get(
+                "evidence_references",
+                [],
+            ),
             "key_values": [
                 {
                     "name": item["metric_name"],
@@ -159,9 +175,112 @@ def compose_response(
         }
 
     # ---------------------------------------------------------
+    # CONGESTION SCORE
+    # ---------------------------------------------------------
+    if evidence_type == "congestion_score":
+        value = evidence.get("value")
+
+        if value is None:
+            return {
+                "status": "unavailable",
+                "answer": (
+                    "The congestion score is not available "
+                    "in the approved evidence returned for "
+                    "this request."
+                ),
+                "evidence_references": evidence.get(
+                    "evidence_references",
+                    [],
+                ),
+                "key_values": [],
+                "metadata": {
+                    "data_version": evidence.get(
+                        "data_version"
+                    ),
+                    "method_version": evidence.get(
+                        "method_version"
+                    ),
+                    "quality_status": evidence.get(
+                        "quality_status"
+                    ),
+                },
+                "limitation": (
+                    "A congestion score must be supported by "
+                    "approved evidence before it can be reported."
+                ),
+                "suggested_follow_ups": [
+                    "Ask how the congestion score was calculated.",
+                    "Ask for the approved congestion evidence.",
+                ],
+            }
+
+        return {
+            "status": "answered",
+            "answer": (
+                f"The congestion score is {value}."
+            ),
+            "evidence_references": evidence.get(
+                "evidence_references",
+                [],
+            ),
+            "key_values": [
+                {
+                    "name": "congestion_score",
+                    "value": value,
+                    "unit": evidence.get("unit"),
+                }
+            ],
+            "metadata": {
+                "data_version": evidence.get(
+                    "data_version"
+                ),
+                "method_version": evidence.get(
+                    "method_version"
+                ),
+                "quality_status": evidence.get(
+                    "quality_status"
+                ),
+            },
+            "limitation": evidence.get(
+                "limitation",
+                (
+                    "The score is reported from the "
+                    "available approved evidence."
+                ),
+            ),
+            "suggested_follow_ups": [
+                "Ask how the congestion score was calculated.",
+                "Ask for the approved congestion evidence.",
+            ],
+        }
+
+    # ---------------------------------------------------------
     # RESULT-SPECIFIC EVIDENCE
     # ---------------------------------------------------------
-    item = evidence["item"]
+    item = evidence.get("item")
+
+    # Prevent another KeyError if evidence is malformed.
+    if item is None:
+        return {
+            "status": "unavailable",
+            "answer": (
+                "The assistant received an unsupported or "
+                "incomplete evidence record."
+            ),
+            "evidence_references": evidence.get(
+                "evidence_references",
+                [],
+            ),
+            "key_values": [],
+            "metadata": _package_metadata(evidence),
+            "limitation": (
+                "The response can only be generated from "
+                "complete approved evidence."
+            ),
+            "suggested_follow_ups": [
+                "Ask for the available comparison groups.",
+            ],
+        }
 
     # ---------------------------------------------------------
     # BASELINE
@@ -174,7 +293,9 @@ def compose_response(
                 f'{item["metric_name"]} is '
                 f'{evidence["value"]} {item["result_unit"]}.'
             ),
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "baseline",
@@ -183,14 +304,18 @@ def compose_response(
                 },
                 {
                     "name": "observations",
-                    "value": item["evidence"]["observation_count"],
+                    "value": item["evidence"][
+                        "observation_count"
+                    ],
                 },
             ],
             "metadata": _metadata(item),
             "limitation": item["limitation"],
             "suggested_follow_ups": [
-                f'Ask for the range of {item["metric_name"]}.',
-                f'Ask what finding was recorded for {item["metric_name"]}.',
+                f'Ask for the range of '
+                f'{item["metric_name"]}.',
+                f'Ask what finding was recorded for '
+                f'{item["metric_name"]}.',
             ],
         }
 
@@ -203,10 +328,13 @@ def compose_response(
             "answer": (
                 f'{item["metric_name"]} ranges from '
                 f'{evidence["minimum"]} to '
-                f'{evidence["maximum"]} {item["result_unit"]}, '
+                f'{evidence["maximum"]} '
+                f'{item["result_unit"]}, '
                 f'with a range of {evidence["range"]}.'
             ),
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "minimum",
@@ -227,7 +355,8 @@ def compose_response(
             "metadata": _metadata(item),
             "limitation": item["limitation"],
             "suggested_follow_ups": [
-                f'Ask for the baseline of {item["metric_name"]}.',
+                f'Ask for the baseline of '
+                f'{item["metric_name"]}.',
             ],
         }
 
@@ -240,9 +369,12 @@ def compose_response(
             "answer": (
                 f'The {evidence["extreme"]} observed value for '
                 f'{item["metric_name"]} is '
-                f'{evidence["value"]} {item["result_unit"]}.'
+                f'{evidence["value"]} '
+                f'{item["result_unit"]}.'
             ),
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": evidence["extreme"],
@@ -253,7 +385,8 @@ def compose_response(
             "metadata": _metadata(item),
             "limitation": item["limitation"],
             "suggested_follow_ups": [
-                f'Ask for the baseline of {item["metric_name"]}.',
+                f'Ask for the baseline of '
+                f'{item["metric_name"]}.',
             ],
         }
 
@@ -272,14 +405,19 @@ def compose_response(
         return {
             "status": "answered",
             "answer": (
-                f'The approved result for {item["metric_name"]} '
-                f'is {evidence["value"]} {item["result_unit"]}, '
+                f'The approved result for '
+                f'{item["metric_name"]} is '
+                f'{evidence["value"]} '
+                f'{item["result_unit"]}, '
                 f'which is {abs(evidence["difference"])} '
                 f'{item["result_unit"]} {direction} the '
-                f'comparative baseline of {evidence["baseline"]} '
+                f'comparative baseline of '
+                f'{evidence["baseline"]} '
                 f'{item["result_unit"]}.'
             ),
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "observed_value",
@@ -300,7 +438,8 @@ def compose_response(
             "metadata": _metadata(item),
             "limitation": item["limitation"],
             "suggested_follow_ups": [
-                f'Ask for the range of {item["metric_name"]}.',
+                f'Ask for the range of '
+                f'{item["metric_name"]}.',
             ],
         }
 
@@ -311,22 +450,29 @@ def compose_response(
         return {
             "status": "answered",
             "answer": item["finding"],
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "observation_count",
-                    "value": item["evidence"]["observation_count"],
+                    "value": item["evidence"][
+                        "observation_count"
+                    ],
                 },
                 {
                     "name": "baseline",
-                    "value": item["evidence"]["baseline_value"],
+                    "value": item["evidence"][
+                        "baseline_value"
+                    ],
                     "unit": item["result_unit"],
                 },
             ],
             "metadata": _metadata(item),
             "limitation": item["limitation"],
             "suggested_follow_ups": [
-                f'Ask for the range of {item["metric_name"]}.',
+                f'Ask for the range of '
+                f'{item["metric_name"]}.',
             ],
         }
 
@@ -344,7 +490,9 @@ def compose_response(
                 f'The current method version is '
                 f'{item["method_version"]}.'
             ),
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "track",
@@ -352,11 +500,15 @@ def compose_response(
                 },
                 {
                     "name": "baseline_method",
-                    "value": item["baseline_method"],
+                    "value": item[
+                        "baseline_method"
+                    ],
                 },
                 {
                     "name": "method_version",
-                    "value": item["method_version"],
+                    "value": item[
+                        "method_version"
+                    ],
                 },
             ],
             "metadata": _metadata(item),
@@ -373,7 +525,9 @@ def compose_response(
         return {
             "status": "answered",
             "answer": evidence["summary_limitation"],
-            "evidence_references": [item["result_id"]],
+            "evidence_references": [
+                item["result_id"]
+            ],
             "key_values": [
                 {
                     "name": "approved_track",
@@ -418,7 +572,9 @@ def compose_response(
             "metadata": {
                 "data_version": evidence["data_version"],
                 "method_version": evidence["method_versions"],
-                "quality_status": evidence["validation_status"],
+                "quality_status": evidence[
+                    "validation_status"
+                ],
             },
             "limitation": (
                 "Freshness describes the captured approved "
@@ -430,6 +586,28 @@ def compose_response(
             ],
         }
 
-    raise ValueError(
-        f"Unsupported evidence type: {evidence_type}"
-    )
+    # ---------------------------------------------------------
+    # UNKNOWN EVIDENCE TYPE
+    # ---------------------------------------------------------
+    return {
+        "status": "unavailable",
+        "answer": (
+            f"The assistant received an unsupported evidence "
+            f"type: {evidence_type}."
+        ),
+        "evidence_references": evidence.get(
+            "evidence_references",
+            [],
+        ),
+        "key_values": [],
+        "metadata": _package_metadata(evidence),
+        "limitation": (
+            "Only approved evidence types can be converted "
+            "into assistant responses."
+        ),
+        "suggested_follow_ups": [
+            "List the available comparison groups.",
+            "Ask for the baseline of a supported metric.",
+        ],
+    }
+

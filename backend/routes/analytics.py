@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+ï»¿from pathlib import Path
 import json
 
 from fastapi import (
@@ -125,14 +125,14 @@ def phase3_intelligence():
 
         if (
             results.get("primary_track")
-            != "Track A — Comparative"
+            != "Track A â€” Comparative"
         ):
 
             raise HTTPException(
                 status_code=500,
                 detail=(
                     "Phase 3 intelligence output does not "
-                    "match the approved Track A — Comparative track."
+                    "match the approved Track A â€” Comparative track."
                 )
             )
 
